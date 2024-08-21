@@ -4,6 +4,17 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Title>Blazorify Bootstrap</Title>
+		<Version>1.0.0-alpha1</Version>
+		<Authors>lambidu</Authors>
+		<Description>A powerful Blazor component library that seamlessly integrates Bootstrap's responsive design and styling capabilities with the simplicity and efficiency of Blazor.</Description>
+		<PackageProjectUrl>https://github.com/blazorify/bootstrap</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/blazorify/bootstrap</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>blazor; bootstrap;</PackageTags>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -12,6 +23,17 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.8" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="LICENSE">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Update="README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 
 </Project>
