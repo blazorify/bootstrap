@@ -1,0 +1,34 @@
+<div id="@ID" class="carousel slide @Class" style="@Style" @onmouseover="@(() => HandleMouseOver())" @onmouseout="@(() => HandleMouseOut())">
+	@if (WithIndicators) {
+		<div class="carousel-indicators">
+			@for (var index = 0; index < this.items.Count; index++) {
+				var itemIndex = index;
+
+				<button type="button"
+						class="@(itemIndex == activeItemIndex ? "active" : "")"
+						aria-current="@(itemIndex == activeItemIndex ? true : null)"
+						data-bs-target="#@ID"
+						@onclick="@(async () => await OnSlideTo(itemIndex))">
+				</button>
+			}
+		</div>
+	}
+
+	<div class="carousel-inner">
+		<CascadingValue Value="this">
+			@ChildContent
+		</CascadingValue>
+	</div>
+
+	@if (WithControls) {
+		<button type="button" class="carousel-control-prev" @onclick="@(async () => await OnSlidePrev())">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Previous</span>
+		</button>
+
+		<button type="button" class="carousel-control-next" @onclick="@(async () => await OnSlideNext())">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Next</span>
+		</button>
+	}
+</div>
