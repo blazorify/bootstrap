@@ -26,6 +26,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Blazorify.JavaScript\Blazorify.JavaScript.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Update="LICENSE">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
