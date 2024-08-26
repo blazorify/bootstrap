@@ -1,0 +1,20 @@
+@namespace Blazorify.Bootstrap
+@inherits BuiComponentBase
+
+<nav class="navbar navbar-expand-lg @ClassList">
+	<BuiContainer Fluid="Fluid">
+		@if (BuiNavbarBrand != null) {
+			@BuiNavbarBrand(new BuiNavbarBrand())
+		} else {
+			<BuiNavbarBrand>
+				@BrandName
+			</BuiNavbarBrand>
+		}
+	</BuiContainer>
+
+	<BuiNavbarToggler />
+
+	<BuiNavbarCollapse>
+		@ChildContent
+	</BuiNavbarCollapse>
+</nav>

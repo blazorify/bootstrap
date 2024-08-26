@@ -1,0 +1,22 @@
+@namespace Blazorify.Bootstrap
+@inherits BuiComponentBase
+
+<picture class="@Class">
+	@if (hasLoadingError == false) {
+		<img id="@ID"
+			 class="img-fluid"
+			 style="@Style"
+			 src="@Source"
+			 alt="@Alt"
+			 @onload="@((e) => HandleLoad(e))"
+			 @onerror="@(e => HandleError(e))" />
+	}
+
+	@if (BuiImagePlaceholder != null && isLoading) {
+		@BuiImagePlaceholder
+	}
+
+	@if (BuiImageFallback != null && hasLoadingError) {
+		@BuiImageFallback
+	}
+</picture>
