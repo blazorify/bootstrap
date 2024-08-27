@@ -1,4 +1,4 @@
 namespace Blazorify.Bootstrap {
-	public partial class BuiOffcanvasTitle : BuiComponentBase {
+	public partial class BuiOffcanvasTitle : BuiContentComponentBase {
 	}
 }

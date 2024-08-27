@@ -2,7 +2,7 @@ using System;
 using Microsoft.AspNetCore.Components;
 
 namespace Blazorify.Bootstrap {
-	public partial class BuiNavbar : BuiComponentBase {
+	public partial class BuiNavbar : BuiContentComponentBase {
 		[Parameter]
 		public Boolean Fluid { get; set; } = false;
 

@@ -1,4 +1,4 @@
 namespace Blazorify.Bootstrap {
-	public partial class BuiCardHeader : BuiComponentBase {
+	public partial class BuiCardHeader : BuiContentComponentBase {
 	}
 }

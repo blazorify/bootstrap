@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 
 namespace Blazorify.Bootstrap {
-	public partial class BuiCarouselItem : BuiComponentBase, IDisposable {
+	public partial class BuiCarouselItem : BuiContentComponentBase, IDisposable {
 		private String specialClasses = String.Empty;
 
 		public ElementReference elementReference { get; private set; }

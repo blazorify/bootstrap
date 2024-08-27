@@ -1,4 +1,4 @@
 namespace Blazorify.Bootstrap {
-	public partial class BuiNavbarBrand : BuiComponentBase {
+	public partial class BuiNavbarBrand : BuiContentComponentBase {
 	}
 }

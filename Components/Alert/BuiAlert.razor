@@ -1,0 +1,10 @@
+@namespace Blazorify.Bootstrap
+@inherits BuiContentComponentBase
+
+<div class="alert  @ClassList" role="alert">
+	@ChildContent
+
+	@if (Dismissible) {
+		<button type="button" class="btn-close" @onclick="HandleDismiss" aria-label="Close"></button>
+	}
+</div>

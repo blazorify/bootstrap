@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 
 namespace Blazorify.Bootstrap {
-	public partial class BuiModalHeader : BuiComponentBase {
+	public partial class BuiModalHeader : BuiContentComponentBase {
 		[CascadingParameter]
 		public BuiModal? Modal { get; set; }
 

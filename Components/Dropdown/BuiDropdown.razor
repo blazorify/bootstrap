@@ -1,0 +1,8 @@
+@namespace Blazorify.Bootstrap
+@inherits BuiContentComponentBase
+
+<div class="dropdown @ClassList">
+	<CascadingValue Value="this">
+		@ChildContent
+	</CascadingValue>
+</div>

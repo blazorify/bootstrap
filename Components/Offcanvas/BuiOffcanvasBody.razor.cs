@@ -1,8 +1,4 @@
-using System;
-using Blazorify.Bootstrap.Attributes;
-using Microsoft.AspNetCore.Components;
-
 namespace Blazorify.Bootstrap {
-	public partial class BuiOffcanvasBody : BuiComponentBase {
+	public partial class BuiOffcanvasBody : BuiContentComponentBase {
 	}
 }

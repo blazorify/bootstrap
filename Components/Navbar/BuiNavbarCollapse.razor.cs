@@ -1,4 +1,4 @@
 namespace Blazorify.Bootstrap {
-	public partial class BuiNavbarCollapse : BuiComponentBase {
+	public partial class BuiNavbarCollapse : BuiContentComponentBase {
 	}
 }

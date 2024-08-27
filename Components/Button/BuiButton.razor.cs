@@ -1,14 +1,13 @@
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Blazorify.Bootstrap.Attributes;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
 namespace Blazorify.Bootstrap {
-	public partial class BuiButton : BuiComponentBase {
+	public partial class BuiButton : BuiContentComponentBase {
 		[Parameter]
-		public ButtonType Type { get; set; } = ButtonType.Button;
+		public virtual ButtonType Type { get; set; } = ButtonType.Button;
 
 		[Parameter]
 		public Size? Size { get; set; }
@@ -42,7 +41,7 @@ namespace Blazorify.Bootstrap {
 		[Parameter]
 		public EventCallback<MouseEventArgs> OnClick { get; set; }
 
-		private async Task HandleClick(MouseEventArgs args) {
+		protected virtual async Task HandleClick(MouseEventArgs args) {
 			if (!this.Disabled) {
 				await this.OnClick.InvokeAsync(args);
 			}

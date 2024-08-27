@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace Blazorify.Bootstrap {
-	public partial class BuiModal : BuiComponentBase {
+	public partial class BuiModal : BuiContentComponentBase {
 		[Inject]
 		private IJSRuntime? jsRuntime { get; set; }
 

@@ -46,16 +46,13 @@ namespace Blazorify.Bootstrap {
 		[Parameter]
 		public String? XXL { get; set; }
 
-		[Parameter]
-		public RenderFragment? ChildContent { get; set; }
-
 		protected override async Task OnParametersSetAsync() {
 			await base.OnParametersSetAsync();
 
-			this.ApplyBindClassAttributes();
+			await this.ApplyBindClassAttributes();
 		}
 
-		private void ApplyBindClassAttributes() {
+		private async Task ApplyBindClassAttributes() {
 			var properties = this.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
 			foreach (var property in properties) {
@@ -68,6 +65,8 @@ namespace Blazorify.Bootstrap {
 					method?.Invoke(attribute, [this.ClassList, value]);
 				}
 			}
+
+			await this.InvokeAsync(StateHasChanged);
 		}
 	}
 }

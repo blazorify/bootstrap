@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace Blazorify.Bootstrap {
-	public partial class BuiCarousel : BuiComponentBase {
+	public partial class BuiCarousel : BuiContentComponentBase {
 		private TimeSpan transitionDelay = TimeSpan.FromSeconds(0.6);
 
 		private Boolean isSliding = false;

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
 namespace Blazorify.Bootstrap {
-	public partial class BuiImage : BuiComponentBase {
+	public partial class BuiImage : BuiContentComponentBase {
 		private Boolean isLoading = true;
 		private Boolean hasLoadingError = false;
 		private String? source = String.Empty;

@@ -3,7 +3,7 @@ using Blazorify.Bootstrap.Attributes;
 using Microsoft.AspNetCore.Components;
 
 namespace Blazorify.Bootstrap {
-	public partial class BuiOffcanvas : BuiComponentBase {
+	public partial class BuiOffcanvas : BuiContentComponentBase {
 		[Parameter]
 		[BindClass("show", true)]
 		public Boolean Open { get; set; } = false;
