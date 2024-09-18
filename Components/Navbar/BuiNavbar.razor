@@ -10,11 +10,15 @@
 				@BrandName
 			</BuiNavbarBrand>
 		}
+
+		<BuiNavbarToggler />
+
+		@if(BuiNavbarCollapse != null) {
+			@BuiNavbarCollapse(new BuiNavbarCollapse())
+		} else {
+			<BuiNavbarCollapse>
+				@BuiNavbarNav
+			</BuiNavbarCollapse>
+		}
 	</BuiContainer>
-
-	<BuiNavbarToggler />
-
-	<BuiNavbarCollapse>
-		@ChildContent
-	</BuiNavbarCollapse>
 </nav>

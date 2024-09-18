@@ -11,5 +11,11 @@ namespace Blazorify.Bootstrap {
 
 		[Parameter]
 		public RenderFragment<BuiNavbarBrand>? BuiNavbarBrand { get; set; }
+
+		[Parameter]
+		public RenderFragment<BuiNavbarCollapse>? BuiNavbarCollapse { get; set; }
+
+		[Parameter]
+		public RenderFragment<BuiNavbarNav>? BuiNavbarNav { get; set; }
 	}
 }
