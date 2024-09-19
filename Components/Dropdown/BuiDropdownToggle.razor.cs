@@ -10,6 +10,10 @@ namespace Blazorify.Bootstrap {
 		public override ButtonType Type { get; set; } = ButtonType.Button;
 
 		[Parameter]
+		[BindClass("show", true)]
+		public Boolean Open { get; set; } = false;
+
+		[Parameter]
 		[BindClass("dropdown-toggle", true)]
 		public Boolean Caret { get; set; } = true;
 
@@ -18,10 +22,20 @@ namespace Blazorify.Bootstrap {
 		public Boolean Split { get; set; } = false;
 
 		[CascadingParameter]
-		public BuiDropdown? Dropdown { get; set; }
+		internal BuiDropdownSharedState? State { get; set; }
+
+		protected override async Task OnAfterRenderAsync(Boolean firstRender) {
+			await base.OnAfterRenderAsync(firstRender);
+
+			if (firstRender) {
+				ArgumentNullException.ThrowIfNull(this.State);
+
+				this.State.OnChange(state => state.Open, open => this.Open = open);
+			}
+		}
 
 		protected override async Task HandleClick(MouseEventArgs args) {
-			ArgumentNullException.ThrowIfNull(this.Dropdown);
+			ArgumentNullException.ThrowIfNull(this.State);
 
 			await base.HandleClick(args);
 
@@ -29,7 +43,7 @@ namespace Blazorify.Bootstrap {
 				await this.OnClick.InvokeAsync(args);
 			}
 
-			await this.Dropdown.HandleToggle(args);
+			this.State.Open = !this.State.Open;
 		}
 	}
 }

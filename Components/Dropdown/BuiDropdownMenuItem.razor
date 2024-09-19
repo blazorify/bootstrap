@@ -1,6 +1,6 @@
 @namespace Blazorify.Bootstrap
 @inherits BuiContentComponentBase
 
-<button type="button" class="dropdown-item @ClassList">
+<button type="button" class="dropdown-item @ClassList" @onclick="HandleClick">
 	@ChildContent
 </button>

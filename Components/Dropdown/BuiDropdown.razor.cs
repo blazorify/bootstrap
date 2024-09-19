@@ -10,18 +10,38 @@ namespace Blazorify.Bootstrap {
 		[BindClass("show", true)]
 		public Boolean Open { get; set; } = false;
 
-		public async Task HandleOpen(MouseEventArgs args) {
-			// TODO: Implement transition
-			this.Open = true;
+		internal BuiDropdownSharedState State { get; set; } = new();
 
-			await this.InvokeAsync(StateHasChanged);
+		protected override async Task OnAfterRenderAsync(Boolean firstRender) {
+			await base.OnAfterRenderAsync(firstRender);
+
+			if (firstRender) {
+				ArgumentNullException.ThrowIfNull(this.State);
+
+				this.State.OnChange(s => s.Open, async open => {
+					this.Open = open;
+
+					await this.ApplyBindClassAttributes();
+				});
+			}
+		}
+
+		public async Task HandleOpen(MouseEventArgs args) {
+			ArgumentNullException.ThrowIfNull(this.State);
+
+			// TODO: Implement transition
+			this.State.Open = this.Open;
+
+			await Task.CompletedTask;
 		}
 
 		public async Task HandleClose(MouseEventArgs args) {
-			// TODO: Implement transition
-			this.Open = false;
+			ArgumentNullException.ThrowIfNull(this.State);
 
-			await this.InvokeAsync(StateHasChanged);
+			// TODO: Implement transition
+			this.State.Open = this.Open;
+
+			await Task.CompletedTask;
 		}
 
 		public async Task HandleToggle(MouseEventArgs args) {

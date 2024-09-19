@@ -52,7 +52,7 @@ namespace Blazorify.Bootstrap {
 			await this.ApplyBindClassAttributes();
 		}
 
-		private async Task ApplyBindClassAttributes() {
+		protected async Task ApplyBindClassAttributes() {
 			var properties = this.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
 			foreach (var property in properties) {
