@@ -32,11 +32,11 @@ namespace Microsoft.AspNetCore.Builder {
 					// Ensure theme name is not empty or null
 					ArgumentException.ThrowIfNullOrWhiteSpace(themeName);
 
-					var themeFileManager = app.ApplicationServices.GetRequiredService<ResourceFileManager>();
-					var optionsAccessor = app.ApplicationServices.GetRequiredService<IOptions<BootstrapOptions>>();
+					var themeFileManager = context.RequestServices.GetRequiredService<ResourceFileManager>();
+					var optionsAccessor = context.RequestServices.GetRequiredService<IOptions<BootstrapOptions>>();
 					var loggerFactory = context.RequestServices.GetRequiredService<ILoggerFactory>();
 
-					var logger = loggerFactory.CreateLogger($"{typeof(_Imports).Namespace}.{nameof(MapThemeEndpoint)}");
+					var logger = loggerFactory.CreateLogger($"Blazorify.Bootstrap.MapThemeEndpoint");
 
 					try {
 						var options = optionsAccessor.Value;
@@ -48,12 +48,12 @@ namespace Microsoft.AspNetCore.Builder {
 							};
 
 							var scssContent = themeFileManager.ReadFile($"{theme.Namespace}/index.scss");
-							var cssContent = SassCompiler.Compile(scssContent, compilationOptions).CompiledContent;
+							var result = SassCompiler.Compile(scssContent, compilationOptions);
 
 							context.Response.StatusCode = StatusCodes.Status200OK;
 							context.Response.Headers["Content-Type"] = "text/css";
 
-							await context.Response.WriteAsync(cssContent);
+							await context.Response.WriteAsync(result.CompiledContent);
 						} else {
 							logger.LogInformation("Theme '{themeName}' not found", themeName);
 

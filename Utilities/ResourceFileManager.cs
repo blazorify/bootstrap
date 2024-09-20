@@ -12,9 +12,9 @@ namespace Blazorify.Bootstrap {
 		private readonly BootstrapOptions options;
 		private readonly ILogger<ResourceFileManager> logger;
 
-		/// <summary>
-		/// This tells LibSass whether this IFileManager supports converting relative paths to absolute paths.
-		/// </summary>
+		private String currentDirectory = "/";
+
+		/// <inheritdoc/>
 		public Boolean SupportsConversionToAbsolutePath => false;
 
 		public ResourceFileManager(
@@ -27,11 +27,9 @@ namespace Blazorify.Bootstrap {
 
 		/// <inheritdoc/>
 		public String GetCurrentDirectory() {
-			var currentDirectory = "/";
+			this.logger.LogDebug("GetCurrentDirectory: {currentDirectory}", this.currentDirectory);
 
-			this.logger.LogDebug("GetCurrentDirectory: {currentDirectory}", currentDirectory);
-
-			return currentDirectory;
+			return this.currentDirectory;
 		}
 
 		/// <inheritdoc/>
@@ -46,7 +44,9 @@ namespace Blazorify.Bootstrap {
 				var resourceName = this.GetResourcePath(path);
 				var resourceExists = theme.Assembly.ResourceExists(resourceName);
 
-				this.logger.LogDebug("FileExists: {path} => {resourceName} = {resourceExists}", path, resourceName, resourceNamespace);
+				if (resourceExists) {
+					this.logger.LogDebug("FileExists: {path}", path);
+				}
 
 				return resourceExists;
 			}
@@ -62,15 +62,7 @@ namespace Blazorify.Bootstrap {
 				return false;
 			}
 
-			if (this.options.Themes.TryGetValue(theme => theme.Namespace.Equals(resourceNamespace, StringComparison.OrdinalIgnoreCase), out var theme)) {
-				this.logger.LogDebug("IsAbsolutePath: {path} => {resourceNamespace} = True", path, resourceNamespace);
-
-				return true;
-			}
-
-			this.logger.LogDebug("IsAbsolutePath: {path} => {resourceNamespace} = False", path, resourceNamespace);
-
-			return false;
+			return this.options.Themes.Values.Any(theme => theme.Namespace.Equals(resourceNamespace, StringComparison.OrdinalIgnoreCase));
 		}
 
 		/// <inheritdoc/>
@@ -96,7 +88,7 @@ namespace Blazorify.Bootstrap {
 			var resourceName = this.GetResourcePath(path);
 
 			if (this.options.Themes.TryGetValue(theme => theme.Namespace.Equals(resourceNamespace, StringComparison.OrdinalIgnoreCase), out var theme)) {
-				this.logger.LogDebug("FileExists: {path} => {resourceName}", path, resourceName);
+				this.currentDirectory = Path.GetDirectoryName(path)?.Replace('\\', '/') ?? "/";
 
 				return theme.Assembly.GetResourceAsText(resourceName);
 			}
@@ -109,11 +101,7 @@ namespace Blazorify.Bootstrap {
 		}
 
 		private String GetResourcePath(String path) {
-			var resourcePath = path.Replace("/", ".").Replace("\\", ".");
-
-			this.logger.LogDebug("GetResourcePath: {path} => {resourcePath} = True", path, resourcePath);
-
-			return resourcePath;
+			return path.Replace("/", ".").Replace("\\", ".");
 		}
 	}
 }
