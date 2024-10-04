@@ -31,4 +31,13 @@ namespace Blazorify.Bootstrap {
 		Submit = 2,
 		Reset = 4,
 	}
+
+	public enum NavbarExpand {
+		Always = 1,
+		SM = 2,
+		MD = 4,
+		LG = 8,
+		XL = 16,
+		XXL = 32,
+	}
 }

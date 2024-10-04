@@ -1,6 +1,12 @@
 @namespace Blazorify.Bootstrap
 @inherits BuiContentComponentBase
 
-<div class="navbar-brand">
-	@ChildContent
-</div>
+@if (String.IsNullOrWhiteSpace(this.Href)) {
+	<div class="navbar-brand">
+		@ChildContent
+	</div>
+} else {
+	<a class="navbar-brand" href="@Href">
+		@ChildContent
+	</a>
+}

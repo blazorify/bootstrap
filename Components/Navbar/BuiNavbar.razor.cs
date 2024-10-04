@@ -1,4 +1,5 @@
 using System;
+using Blazorify.Bootstrap.Attributes;
 using Microsoft.AspNetCore.Components;
 
 namespace Blazorify.Bootstrap {
@@ -10,12 +11,21 @@ namespace Blazorify.Bootstrap {
 		public String? BrandName { get; set; }
 
 		[Parameter]
-		public RenderFragment<BuiNavbarBrand>? BuiNavbarBrand { get; set; }
+		[BindClass("navbar-expand", NavbarExpand.Always)]
+		[BindClass("navbar-expand-sm", NavbarExpand.SM)]
+		[BindClass("navbar-expand-md", NavbarExpand.MD)]
+		[BindClass("navbar-expand-lg", NavbarExpand.LG)]
+		[BindClass("navbar-expand-xl", NavbarExpand.XL)]
+		[BindClass("navbar-expand-xxl", NavbarExpand.XXL)]
+		public NavbarExpand Expand { get; set; } = NavbarExpand.Always;
 
 		[Parameter]
-		public RenderFragment<BuiNavbarCollapse>? BuiNavbarCollapse { get; set; }
+		public RenderFragment<BuiNavbarBrand>? NavbarBrand { get; set; }
 
 		[Parameter]
-		public RenderFragment<BuiNavbarNav>? BuiNavbarNav { get; set; }
+		public RenderFragment<BuiNavbarCollapse>? NavbarCollapse { get; set; }
+
+		[Parameter]
+		public RenderFragment<BuiNavbarNav>? NavbarNav { get; set; }
 	}
 }
