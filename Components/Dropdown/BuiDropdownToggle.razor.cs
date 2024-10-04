@@ -45,5 +45,17 @@ namespace Blazorify.Bootstrap {
 
 			this.State.Open = !this.State.Open;
 		}
+
+		protected async Task HandleKeypress(KeyboardEventArgs args) {
+			ArgumentNullException.ThrowIfNull(this.State);
+
+			if (this.Disabled || !this.Open) {
+				return;
+			}
+
+			if (args.Key == "Escape") {
+				this.State.Open = false;
+			}
+		}
 	}
 }

@@ -32,6 +32,13 @@ namespace Blazorify.Bootstrap {
 		Reset = 4,
 	}
 
+	public enum AutoClose {
+		Always = 1,
+		Inside = 2,
+		Outside = 4,
+		Manually = 8,
+	}
+
 	public enum NavbarExpand {
 		Always = 1,
 		SM = 2,
