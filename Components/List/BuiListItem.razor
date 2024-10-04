@@ -1,6 +1,12 @@
 @namespace Blazorify.Bootstrap
 @inherits BuiContentComponentBase
 
-<div class="list-group-item @ClassList">
-	@ChildContent
-</div>
+@if (!String.IsNullOrWhiteSpace(Href)) {
+	<a class="list-group-item @ClassList" href="@Href">
+		@ChildContent
+	</a>
+} else {
+	<div class="list-group-item @ClassList">
+		@ChildContent
+	</div>
+}
