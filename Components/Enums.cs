@@ -1,12 +1,22 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace Blazorify.Bootstrap {
+	public enum Justify {
+		Start = 1,
+		End = 2,
+		Center = 4,
+		Between = 8,
+		Around = 16,
+		Evenly = 32,
+	}
+
 	public enum Placement {
 		Start = 1,
 		Top = 2,
 		Bottom = 4,
 		End = 8,
 	}
+
 	public enum Variant {
 		None = 0,
 		Primary = 1,
