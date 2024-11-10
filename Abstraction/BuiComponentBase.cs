@@ -25,6 +25,13 @@ namespace Blazorify.Bootstrap {
 		public String? Style { get; set; }
 
 		[Parameter]
+		[BindClass("rounded-pill", true)]
+		public Boolean Pill { get; set; } = false;
+
+		[Parameter]
+		public Boolean AutoFocus { get; set; } = false;
+
+		[Parameter]
 		public virtual String? Tag { get; set; }
 
 		[Parameter]
