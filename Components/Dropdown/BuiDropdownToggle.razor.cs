@@ -47,6 +47,8 @@ namespace Blazorify.Bootstrap {
 		}
 
 		protected async Task HandleKeypress(KeyboardEventArgs args) {
+			await Task.CompletedTask;
+
 			ArgumentNullException.ThrowIfNull(this.State);
 
 			if (this.Disabled || !this.Open) {
