@@ -45,10 +45,12 @@ namespace Blazorify.Bootstrap {
 				var resourceExists = theme.Assembly.ResourceExists(resourceName);
 
 				if (resourceExists) {
-					this.logger.LogDebug("FileExists: {path}", path);
+					this.logger.LogDebug("FileExists: {path} {resourceNamespace}", path, resourceNamespace);
 				}
 
 				return resourceExists;
+			} else {
+				this.logger.LogDebug("FileNotFound: {path} {resourceNamespace}", path, resourceNamespace);
 			}
 
 			return false;
