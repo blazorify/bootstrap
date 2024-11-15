@@ -1,0 +1,16 @@
+@namespace Blazorify.Bootstrap
+@inherits BuiInputComponentBase<IReadOnlyList<IBrowserFile>>
+
+<div class="@Class" @onclick="HandleClick" role="button">
+	@if (PreviewTemplate != null) {
+		@PreviewTemplate(Value!)
+	} else {
+		if (Value != null) {
+			foreach (var file in Value) {
+				<div>@file.Name</div>
+			}
+		}
+	}
+</div>
+
+<InputFile id="@($"{this.ID}_FileBrowser")" name="@Name" OnChange="HandleChange" multiple="@Multiple" accept="@Filter" hidden />

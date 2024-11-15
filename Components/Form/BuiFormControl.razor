@@ -1,0 +1,29 @@
+@namespace Blazorify.Bootstrap
+@inherits BuiContentComponentBase
+@* @typeparam T *@
+@* @typeparam TModel *@
+
+<div class="@ClassList">
+	@if (!String.IsNullOrWhiteSpace(Label) && !FloatingLabel) {
+		<label for="@ID">
+			@Label
+		</label>
+	}
+
+	@* 	@if (ChildContent == null) {
+	@if (value is String) {
+	<BuiFormInputText T="T" ID="@ID" Name="@Name" Value="@value" ValueChanged="HandleValueChanged" />
+	}
+	} else {
+	@ChildContent
+	}
+	*@
+
+	@ChildContent
+
+	@if (!String.IsNullOrWhiteSpace(Label) && FloatingLabel) {
+		<label for="@ID">
+			@Label
+		</label>
+	}
+</div>

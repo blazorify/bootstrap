@@ -1,0 +1,20 @@
+@namespace Blazorify.Bootstrap
+@inherits BuiInputComponentBase<T>
+@typeparam T
+
+<input type="text"
+	   class="form-control @ClassList"
+	   id="@ID"
+	   name="@Name"
+	   placeholder="@Placeholder"
+	   value="@Value"
+	   autofocus="@AutoFocus"
+	   list="@($"{ID}_DataList")"
+	   @onchange="(async (args) => await HandleChange(args))"
+	   @oninput="(async (args) => await HandleInput(args))" />
+
+<datalist id="@($"{ID}_DataList")">
+	@foreach (var item in Items) {
+		<BuiFormOption Item="item" OptionLabel="OptionLabel" OptionValue="OptionValue" Selected="@(item?.Equals(Value) == true)" />
+	}
+</datalist>

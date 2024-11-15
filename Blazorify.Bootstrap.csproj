@@ -54,6 +54,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Scripts\getElementProperty.js" />
+	  <None Remove="Resources\Scripts\openFileBrowser.js" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Update="Components\Form\BuiFormMoney.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Update="LICENSE">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>

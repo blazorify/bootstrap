@@ -1,0 +1,13 @@
+@namespace Blazorify.Bootstrap
+@inherits BuiFormNumeric<T>
+@typeparam T
+
+<input type="number"
+	   class="form-control @ClassList"
+	   id="@ID"
+	   name="@Name"
+	   placeholder="@Placeholder"
+	   value="@MaskedValue"
+	   autofocus="@AutoFocus"
+	   @onchange="(async (args) => await HandleChange(args))"
+	   @oninput="(async (args) => await HandleInput(args))" />

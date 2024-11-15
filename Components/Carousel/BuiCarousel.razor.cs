@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Timers;
 using Microsoft.AspNetCore.Components;
@@ -163,7 +164,10 @@ namespace Blazorify.Bootstrap {
 
 		private async Task ReflowSlide(ElementReference element) {
 			if (this.jsRuntime != null) {
-				await jsRuntime.InvokeAsync<Object?>("getElementProperty", element, "offsetHeight");
+				var assembly = Assembly.GetExecutingAssembly();
+				var script = assembly.GetResourceAsText("Blazorify.Bootstrap.Resources.Scripts.getElementProperty.js");
+
+				await jsRuntime.InvokeAsync<Object?>("eval", $"({script})('{element.Id}', 'offsetHeight')", element);
 			}
 		}
 

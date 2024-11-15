@@ -1,0 +1,7 @@
+@namespace Blazorify.Bootstrap
+@inherits BuiInputComponentBase<T>
+@typeparam T
+
+<option @key="Item" value="@(OptionValue != null ? OptionValue.Invoke(Item) : Item)" selected="@(Item?.Equals(Value))">
+	@(OptionLabel != null ? OptionLabel.Invoke(Item) : Item)
+</option>

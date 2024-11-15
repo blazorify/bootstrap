@@ -1,0 +1,13 @@
+@namespace Blazorify.Bootstrap
+@inherits BuiInputComponentBase<T>
+@typeparam T
+
+<input type="text"
+	   class="form-control @ClassList"
+	   id="@ID"
+	   name="@Name"
+	   placeholder="@Placeholder"
+	   value="@Value"
+	   autofocus="@AutoFocus"
+	   @onchange="(async (args) => await HandleChange(args))"
+	   @oninput="(async (args) => await HandleInput(args))" />

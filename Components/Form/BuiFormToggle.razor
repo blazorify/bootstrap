@@ -1,0 +1,19 @@
+@namespace Blazorify.Bootstrap
+@inherits BuiInputComponentBase<T>
+@typeparam T
+
+@foreach (var item in Items) {
+	var itemID = $"{ID}_{(OptionValue != null ? OptionValue.Invoke(item) : item)}";
+
+	<input type="radio"
+		   class="btn-check"
+		   id="@itemID"
+		   name="@Name"
+		   value="@(OptionValue != null ? OptionValue.Invoke(item) : item)"
+		   checked="@(item?.Equals(Value) == true)"
+		   autocomplete="off">
+
+	<label class="btn @ClassList" for="@itemID">
+		@(OptionLabel != null ? OptionLabel.Invoke(item) : item)
+	</label>
+}
