@@ -1,6 +1,6 @@
 @namespace Blazorify.Bootstrap
 @inherits BuiItemsComponentBase
 
-<div class="dropdown-menu @ClassList" style="top: 100%">
+<div class="dropdown-menu @ClassList" style="@Style @(Placement == Placement.Start ? "top: 100%; left: 0px" : "") @(Placement == Placement.End ? "top: 100%; right: 0px" : "")">
 	@ChildContent
 </div>

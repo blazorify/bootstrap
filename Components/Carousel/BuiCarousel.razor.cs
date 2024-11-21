@@ -163,12 +163,9 @@ namespace Blazorify.Bootstrap {
 		}
 
 		private async Task ReflowSlide(ElementReference element) {
-			if (this.jsRuntime != null) {
-				var assembly = Assembly.GetExecutingAssembly();
-				var script = assembly.GetResourceAsText("Blazorify.Bootstrap.Resources.Scripts.getElementProperty.js");
+			ArgumentNullException.ThrowIfNull(this.jsRuntime);
 
-				await jsRuntime.InvokeAsync<Object?>("eval", $"({script})('{element.Id}', 'offsetHeight')", element);
-			}
+			await jsRuntime.InvokeScriptAsync<Object?>("Blazorify.Bootstrap.Resources.Scripts.getElementProperty.js", element.Id, "offsetHeight");
 		}
 
 		private void HandleMouseOver() {

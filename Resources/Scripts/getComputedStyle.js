@@ -1,6 +1,9 @@
-(element) => {
+(elementID) => {
+	let element = document.getElementById(elementID) ?? document.querySelector(`[_bl_${elementID}]`);
+
 	if (!element) {
-		return 0;
+		console.error(`Element with ID '${elementID}' was not found`);
+		return null;
 	}
 
 	let { transitionDuration, transitionDelay } = window.getComputedStyle(element);
