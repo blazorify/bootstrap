@@ -15,6 +15,20 @@ namespace Blazorify.Bootstrap {
 		Top = 2,
 		Bottom = 4,
 		End = 8,
+		Center = 16,
+		Middle = 32,
+
+		TopStart = Top | Start,
+		TopCenter = Top | Center,
+		TopEnd = Top | End,
+
+		MiddleStart = Middle | Start,
+		MiddleCenter = Middle | Center,
+		MiddleEnd = Middle | End,
+
+		BottomStart = Bottom | Start,
+		BottomCenter = Bottom | Center,
+		BottomEnd = Bottom | End,
 	}
 
 	public enum Variant {

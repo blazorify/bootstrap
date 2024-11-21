@@ -1,0 +1,10 @@
+@namespace Blazorify.Bootstrap
+@inherits BuiContentComponentBase
+
+<div class="toast-container @ClassList">
+	@foreach (var toast in toastService!.Toasts) {
+		<BuiToast ID="toast.ID" Variant="toast.Variant">
+			@toast.Body
+		</BuiToast>
+	}
+</div>
