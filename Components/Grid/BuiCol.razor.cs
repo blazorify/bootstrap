@@ -34,7 +34,9 @@ namespace Blazorify.Bootstrap {
 		protected override async Task OnBindClassAppliedAsync() {
 			await base.OnBindClassAppliedAsync();
 
-			if (new String?[] { this.XS, this.SM, this.MD, this.LG, this.XL, this.XXL }.Any(m => m != null)) {
+			if (new String?[] { this.XS, this.SM, this.MD, this.LG, this.XL, this.XXL }.All(m => m == null)) {
+				this.ClassList.Add("col");
+			} else {
 				this.ClassList.Remove("col");
 			}
 		}
