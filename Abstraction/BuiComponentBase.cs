@@ -34,25 +34,6 @@ namespace Blazorify.Bootstrap {
 		[Parameter]
 		public virtual String? Tag { get; set; }
 
-		[Parameter]
-		[BindClass("")]
-		public String? XS { get; set; }
-
-		[Parameter]
-		public String? SM { get; set; }
-
-		[Parameter]
-		public String? MD { get; set; }
-
-		[Parameter]
-		public String? LG { get; set; }
-
-		[Parameter]
-		public String? XL { get; set; }
-
-		[Parameter]
-		public String? XXL { get; set; }
-
 		protected override async Task OnParametersSetAsync() {
 			await base.OnParametersSetAsync();
 
@@ -73,7 +54,13 @@ namespace Blazorify.Bootstrap {
 				}
 			}
 
+			await this.OnBindClassAppliedAsync();
+
 			await this.InvokeAsync(StateHasChanged);
+		}
+
+		protected virtual async Task OnBindClassAppliedAsync() {
+			await Task.CompletedTask;
 		}
 	}
 }

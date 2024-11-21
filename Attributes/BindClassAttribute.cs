@@ -21,9 +21,9 @@ namespace Blazorify.Bootstrap.Attributes {
 			}
 
 			if (this.expectedValue == null || this.expectedValue.Equals(propertyValue)) {
-				cssClass.Add(this.className);
+				cssClass.Add(String.Format(this.className, propertyValue));
 			} else {
-				cssClass.Remove(this.className);
+				cssClass.Remove(String.Format(this.className, propertyValue));
 			}
 		}
 	}
