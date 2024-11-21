@@ -1,8 +1,12 @@
 using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 
 namespace Blazorify.Bootstrap {
 	public partial class BuiFormOption<T> : BuiInputComponentBase<T> {
+		[CascadingParameter]
+		public BuiInputComponentBase<T>? Parent { get; set; }
+
 		[Parameter]
 		[EditorRequired]
 		public T Item { get; set; }
@@ -18,5 +22,16 @@ namespace Blazorify.Bootstrap {
 		[Parameter]
 		public Boolean Selected { get; set; } = false;
 
+		protected override async Task OnParametersSetAsync() {
+			ArgumentNullException.ThrowIfNull(this.Parent);
+
+			await base.OnParametersSetAsync();
+		}
+
+		private async Task HandleSelect(EventArgs args) {
+			ArgumentNullException.ThrowIfNull(this.Parent);
+
+			await this.Parent.OnChange.InvokeAsync(this.Item);
+		}
 	}
 }
