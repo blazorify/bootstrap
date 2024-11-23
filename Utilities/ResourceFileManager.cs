@@ -34,23 +34,31 @@ namespace Blazorify.Bootstrap {
 
 		/// <inheritdoc/>
 		public Boolean FileExists(String path) {
-			var resourceNamespace = path.Split('/').FirstOrDefault();
+			var resourceNamespaces = path.Split('/').FirstOrDefault();
 
-			if (String.IsNullOrWhiteSpace(resourceNamespace)) {
+			this.logger.LogDebug("ResourceNamespaces: {resourceNamespaces}", resourceNamespaces);
+
+			if (String.IsNullOrWhiteSpace(resourceNamespaces)) {
 				return false;
 			}
 
-			if (this.options.Themes.TryGetValue(theme => theme.Namespace.Equals(resourceNamespace, StringComparison.OrdinalIgnoreCase), out var theme)) {
-				var resourceName = this.GetResourcePath(path);
-				var resourceExists = theme.Assembly.ResourceExists(resourceName);
+			var resourcePath = String.Join('/', path.Split('/').Skip(1));
 
-				if (resourceExists) {
-					this.logger.LogDebug("FileExists: {path} {resourceNamespace}", path, resourceNamespace);
+			this.logger.LogDebug("ResourcePath: {resourcePath}", resourcePath);
+
+			foreach (var resourceNamespace in resourceNamespaces.Split(';')) {
+				if (this.options.Themes.TryGetValue(theme => theme.Namespace.Equals(resourceNamespace, StringComparison.OrdinalIgnoreCase), out var theme)) {
+					var resourceName = this.GetResourcePath($"{resourceNamespace}/{resourcePath}");
+					var resourceExists = theme.Assembly.ResourceExists(resourceName);
+
+					if (resourceExists) {
+						this.logger.LogDebug("FileExists: {resourceName}", resourceName);
+
+						return true;
+					} else {
+						this.logger.LogDebug("FileNotFound: {resourceName}", resourceName);
+					}
 				}
-
-				return resourceExists;
-			} else {
-				this.logger.LogDebug("FileNotFound: {path} {resourceNamespace}", path, resourceNamespace);
 			}
 
 			return false;
@@ -58,13 +66,19 @@ namespace Blazorify.Bootstrap {
 
 		/// <inheritdoc/>
 		public Boolean IsAbsolutePath(String path) {
-			var resourceNamespace = path.Split('/').FirstOrDefault();
+			var resourceNamespaces = path.Split('/').FirstOrDefault();
 
-			if (String.IsNullOrWhiteSpace(resourceNamespace)) {
+			if (String.IsNullOrWhiteSpace(resourceNamespaces)) {
 				return false;
 			}
 
-			return this.options.Themes.Values.Any(theme => theme.Namespace.Equals(resourceNamespace, StringComparison.OrdinalIgnoreCase));
+			foreach (var resourceNamespace in resourceNamespaces.Split(';')) {
+				if (this.options.Themes.Values.Any(theme => theme.Namespace.Equals(resourceNamespace, StringComparison.OrdinalIgnoreCase))) {
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		/// <inheritdoc/>
@@ -83,19 +97,27 @@ namespace Blazorify.Bootstrap {
 		public String ReadFile(String path) {
 			this.logger.LogDebug("ReadFile: {path}", path);
 
-			var resourceNamespace = path.Split('/').FirstOrDefault();
+			var resourceNamespaces = path.Split('/').FirstOrDefault();
 
-			ArgumentNullException.ThrowIfNullOrWhiteSpace(resourceNamespace);
+			ArgumentNullException.ThrowIfNullOrWhiteSpace(resourceNamespaces);
 
-			var resourceName = this.GetResourcePath(path);
+			var resourcePath = String.Join('/', path.Split('/').Skip(1));
 
-			if (this.options.Themes.TryGetValue(theme => theme.Namespace.Equals(resourceNamespace, StringComparison.OrdinalIgnoreCase), out var theme)) {
-				this.currentDirectory = Path.GetDirectoryName(path)?.Replace('\\', '/') ?? "/";
+			this.logger.LogDebug("ResourcePath: {resourcePath}", resourcePath);
 
-				return theme.Assembly.GetResourceAsText(resourceName);
+			foreach (var resourceNamespace in resourceNamespaces.Split(';')) {
+				var resourceName = this.GetResourcePath($"{resourceNamespace}/{resourcePath}");
+
+				if (this.options.Themes.TryGetValue(theme => theme.Namespace.Equals(resourceNamespace, StringComparison.OrdinalIgnoreCase), out var theme)) {
+					if (theme.Assembly.ResourceExists(resourceName)) {
+						this.currentDirectory = Path.GetDirectoryName(path)?.Replace('\\', '/') ?? "/";
+
+						return theme.Assembly.GetResourceAsText(resourceName);
+					}
+				}
 			}
 
-			var exception = new FileNotFoundException($"Resource file '{resourceName}' not found");
+			var exception = new FileNotFoundException($"Resource file '{path}' not found");
 
 			this.logger.LogError(exception, exception.Message);
 

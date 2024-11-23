@@ -44,7 +44,7 @@ namespace Microsoft.AspNetCore.Builder {
 						if (options.Themes.TryGetValue(themeName, out var theme)) {
 							SassCompiler.FileManager = themeFileManager;
 							var compilationOptions = new CompilationOptions() {
-								IncludePaths = [theme.Namespace, "Blazorify.Bootstrap.Resources"]
+								IncludePaths = ["Blazorify.Bootstrap.Resources", theme.Namespace],
 							};
 
 							var scssContent = themeFileManager.ReadFile($"{theme.Namespace}/index.scss");
