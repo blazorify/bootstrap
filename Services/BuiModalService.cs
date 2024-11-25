@@ -1,12 +1,26 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Blazorify.Bootstrap.Utilities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
+using IComponent = Microsoft.AspNetCore.Components.IComponent;
+
 namespace Blazorify.Bootstrap.Services {
-	public class BuiModalService {
-		public RenderFragment? modalFragment;
+	public class BuiModalService : ViewModelBase {
+		private RenderFragment? modalFragment = null;
+		public RenderFragment? ModalFragment {
+			get {
+				return this.modalFragment;
+			}
+
+			set {
+				this.SetProperty(ref modalFragment, value);
+			}
+		}
 
 		private Dictionary<Guid, RenderFragment?> modalInstances = new();
 
@@ -18,7 +32,7 @@ namespace Blazorify.Bootstrap.Services {
 			var sequence = 0;
 			var modalOptions = new BuiModalOptions<TData>();
 
-			this.modalFragment = new RenderFragment(builder => {
+			this.ModalFragment = new RenderFragment(builder => {
 				builder.OpenComponent<BuiModal>(sequence++);
 
 				if (options != null) {

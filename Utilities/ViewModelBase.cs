@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Blazorify.Bootstrap.Utilities {
-	internal abstract class ViewModelBase : INotifyPropertyChanged {
+	public abstract class ViewModelBase : INotifyPropertyChanged {
 
 		public event PropertyChangedEventHandler? PropertyChanged;
 
