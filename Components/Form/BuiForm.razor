@@ -2,7 +2,7 @@
 @inherits BuiContentComponentBase
 @typeparam TModel
 
-<form @onsubmit="@(async (args) => await HandleSubmit(args))">
+<form class="@ClassList" @onsubmit="@(async (args) => await HandleSubmit(args))">
 	<CascadingValue Value="this">
 		@ChildContent
 	</CascadingValue>
