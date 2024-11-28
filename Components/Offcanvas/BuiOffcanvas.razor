@@ -1,6 +1,22 @@
 @namespace Blazorify.Bootstrap
 @inherits BuiContentComponentBase
 
-<div class="offcanvas @ClassList" tabindex="-1">
-	@ChildContent
+<div class="offcanvas @ClassList" style="@Style" tabindex="-1">
+	<div class="offcanvas-header">
+		@if (Header != null) {
+			@Header
+		}
+
+		@if (Closeable) {
+			<BuiButton Class="btn-close" Type="ButtonType.Button" OnClick="@(async () => await Hide())"></BuiButton>
+		}
+	</div>
+
+	<div class="offcanvas-body">
+		@if (Body != null) {
+			@Body
+		} else {
+			@ChildContent
+		}
+	</div>
 </div>
