@@ -25,8 +25,14 @@ namespace Blazorify.Bootstrap {
 		public String? Style { get; set; }
 
 		[Parameter]
-		[BindClass("rounded-pill", true)]
-		public Boolean Pill { get; set; } = false;
+		[BindClass("rounded", Rounded.All)]
+		[BindClass("rounded-top", Rounded.Top)]
+		[BindClass("rounded-bottom", Rounded.Bottom)]
+		[BindClass("rounded-start", Rounded.Start)]
+		[BindClass("rounded-end", Rounded.End)]
+		[BindClass("rounded-pill", Rounded.Pill)]
+		[BindClass("rounded-circle", Rounded.Circle)]
+		public Rounded Rounded { get; set; } = Rounded.None;
 
 		[Parameter]
 		public Boolean AutoFocus { get; set; } = false;

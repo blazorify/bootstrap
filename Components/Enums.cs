@@ -50,6 +50,17 @@ namespace Blazorify.Bootstrap {
 		Large = 4,
 	}
 
+	public enum Rounded {
+		None = 0,
+		Top = 1,
+		Bottom = 2,
+		Start = 4,
+		End = 8,
+		Pill = 16,
+		Circle = 32,
+		All = 64,
+	}
+
 	public enum ButtonType {
 		Button = 1,
 		Submit = 2,
