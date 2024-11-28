@@ -3,22 +3,22 @@
 
 <nav class="navbar @ClassList">
 	<BuiContainer Fluid="Fluid">
-		@if (NavbarBrand != null) {
-			@NavbarBrand(new BuiNavbarBrand())
-		} else {
-			<BuiNavbarBrand>
-				@BrandName
-			</BuiNavbarBrand>
+		@if (Brand != null) {
+			<div class="navbar-brand">
+				@Brand
+			</div>
 		}
 
-		<BuiNavbarToggler />
+		<BuiButton Type="ButtonType.Button" Class="navbar-toggler">
+			<span class="navbar-toggler-icon"></span>
+		</BuiButton>
 
-		@if(NavbarCollapse != null) {
-			@NavbarCollapse(new BuiNavbarCollapse())
-		} else {
-			<BuiNavbarCollapse>
-				@NavbarNav
-			</BuiNavbarCollapse>
-		}
+		<div class="collapse navbar-collapse">
+			@if (Nav != null) {
+				@Nav
+			} else {
+				@ChildContent
+			}
+		</div>
 	</BuiContainer>
 </nav>

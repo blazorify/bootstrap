@@ -8,9 +8,6 @@ namespace Blazorify.Bootstrap {
 		public Boolean Fluid { get; set; } = false;
 
 		[Parameter]
-		public String? BrandName { get; set; }
-
-		[Parameter]
 		[BindClass("navbar-expand", NavbarExpand.Always)]
 		[BindClass("navbar-expand-sm", NavbarExpand.SM)]
 		[BindClass("navbar-expand-md", NavbarExpand.MD)]
@@ -20,12 +17,12 @@ namespace Blazorify.Bootstrap {
 		public NavbarExpand Expand { get; set; } = NavbarExpand.Always;
 
 		[Parameter]
-		public RenderFragment<BuiNavbarBrand>? NavbarBrand { get; set; }
+		public RenderFragment? Brand { get; set; }
 
 		[Parameter]
-		public RenderFragment<BuiNavbarCollapse>? NavbarCollapse { get; set; }
+		public RenderFragment? Collapse { get; set; }
 
 		[Parameter]
-		public RenderFragment<BuiNavbarNav>? NavbarNav { get; set; }
+		public RenderFragment? Nav { get; set; }
 	}
 }
