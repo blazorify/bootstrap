@@ -30,7 +30,7 @@ namespace Blazorify.Bootstrap {
 		public Boolean Shown { get; set; } = false;
 
 		protected override async Task OnParametersSetAsync() {
-			ArgumentNullException.ThrowIfNull(this.jsRuntime, nameof(this.jsRuntime));
+			ArgumentNullException.ThrowIfNull(this.jsRuntime);
 
 			await base.OnParametersSetAsync();
 		}
@@ -66,6 +66,10 @@ namespace Blazorify.Bootstrap {
 			}
 
 			await this.InvokeAsync(this.StateHasChanged);
+		}
+
+		public async Task Close(Object? payload = null) {
+			await this.Hide(payload);
 		}
 	}
 
