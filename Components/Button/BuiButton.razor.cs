@@ -10,6 +10,8 @@ namespace Blazorify.Bootstrap {
 		public virtual ButtonType Type { get; set; } = ButtonType.Button;
 
 		[Parameter]
+		[BindClass("btn-sm", Bootstrap.Size.Small)]
+		[BindClass("btn-lg", Bootstrap.Size.Large)]
 		public Size? Size { get; set; }
 
 		[Parameter]
