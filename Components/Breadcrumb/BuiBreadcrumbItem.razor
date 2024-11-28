@@ -3,7 +3,7 @@
 
 <li class="breadcrumb-item @ClassList">
 	@if (!String.IsNullOrWhiteSpace(Href)) {
-		<a href="@Href">@ChildContent</a>
+		<a href="@Href" role="button">@ChildContent</a>
 	} else {
 		<span>@ChildContent</span>
 	}
