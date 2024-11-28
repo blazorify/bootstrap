@@ -3,7 +3,7 @@ using Blazorify.Bootstrap.Attributes;
 using Microsoft.AspNetCore.Components;
 
 namespace Blazorify.Bootstrap {
-	public partial class BuiNavItem : BuiContentComponentBase {
+	public partial class BuiNavLink : BuiContentComponentBase {
 		[Parameter]
 		[BindClass("active", true)]
 		public Boolean Active { get; set; } = false;
@@ -11,5 +11,8 @@ namespace Blazorify.Bootstrap {
 		[Parameter]
 		[BindClass("disabled", true)]
 		public Boolean Disabled { get; set; } = false;
+
+		[Parameter]
+		public String? Href { get; set; }
 	}
 }
