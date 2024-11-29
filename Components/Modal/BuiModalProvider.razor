@@ -1,6 +1,8 @@
 @namespace Blazorify.Bootstrap
 @inherits BuiComponentBase
 
-@if (modalService?.ModalFragment != null) {
-	@modalService.ModalFragment
+@if (modalService?.ModalInstances != null) {
+	foreach (var (instance, fragment) in modalService.ModalInstances) {
+		@fragment(instance)
+	}
 }

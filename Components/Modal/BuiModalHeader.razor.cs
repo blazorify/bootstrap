@@ -14,7 +14,9 @@ namespace Blazorify.Bootstrap {
 		}
 
 		private async Task OnClose() {
-			await this.Modal!.Hide();
+			ArgumentNullException.ThrowIfNull(this.Modal);
+
+			await this.Modal.Close();
 		}
 	}
 }

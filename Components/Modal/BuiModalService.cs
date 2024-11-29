@@ -1,40 +1,44 @@
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Blazorify.Bootstrap.Utilities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-using IComponent = Microsoft.AspNetCore.Components.IComponent;
-
 namespace Blazorify.Bootstrap {
 	public class BuiModalService : ViewModelBase {
-		private RenderFragment? modalFragment = null;
-		public RenderFragment? ModalFragment {
+
+		private ObservableCollection<(BuiModal instance, RenderFragment<BuiModal> fragment)> modalInstances = [];
+		public ObservableCollection<(BuiModal instance, RenderFragment<BuiModal> fragment)> ModalInstances {
 			get {
-				return this.modalFragment;
+				return this.modalInstances;
 			}
-
 			set {
-				this.SetProperty(ref this.modalFragment, value);
+				this.SetProperty(ref this.modalInstances, value);
 			}
 		}
 
-		private Dictionary<Guid, RenderFragment?> modalInstances = new();
-
-		public async Task Show<TComponent>(Action<BuiModalOptions<Object?>>? options = null) where TComponent : IComponent {
-			await this.Show<TComponent, Object?>(options);
+		public async Task<BuiModal> Show<TComponent>(Action<BuiModalOptions<Object?>>? options = null) where TComponent : IComponent {
+			return await this.Show<TComponent, Object?>(options);
 		}
 
-		public async Task Show<TComponent, TData>(Action<BuiModalOptions<TData>>? options = null) where TComponent : IComponent {
+		public async Task<BuiModal> Show<TComponent, TData>(Action<BuiModalOptions<TData>>? options = null) where TComponent : IComponent {
+			await Task.CompletedTask;
+
 			var sequence = 0;
 			var modalOptions = new BuiModalOptions<TData>();
 
-			this.ModalFragment = new RenderFragment(builder => {
+			if (options != null) {
+				options.Invoke(modalOptions);
+			}
+
+			var modalInstance = new BuiModal();
+
+			var modalFragment = new RenderFragment<BuiModal>(target => builder => {
 				builder.OpenComponent<BuiModal>(sequence++);
 
-				if (options != null) {
-					options.Invoke(modalOptions);
+				if (modalOptions.Data != null) {
 					sequence = builder.AddAttributesFromObject(sequence, modalOptions, [nameof(modalOptions.Data)]);
 				}
 
@@ -48,7 +52,19 @@ namespace Blazorify.Bootstrap {
 				builder.CloseComponent();
 			});
 
+			this.ModalInstances.Add((modalInstance, modalFragment));
+
+			return modalInstance;
+		}
+
+		public async Task Close(BuiModal instance) {
 			await Task.CompletedTask;
+
+			var tuple = this.modalInstances.FirstOrDefault(m => String.Equals(m.instance.ID, instance.ID));
+
+			if (tuple.instance != null && tuple.fragment != null) {
+				this.ModalInstances.Remove(tuple);
+			}
 		}
 	}
 }

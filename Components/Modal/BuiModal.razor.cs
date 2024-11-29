@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Blazorify.Bootstrap.Attributes;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -7,6 +8,9 @@ namespace Blazorify.Bootstrap {
 	public partial class BuiModal : BuiContentComponentBase {
 		[Inject]
 		private IJSRuntime? jsRuntime { get; set; }
+
+		[Inject]
+		private BuiModalService? modalService { get; set; }
 
 		[Parameter]
 		public Boolean Fullscreen { get; set; } = false;
@@ -27,6 +31,10 @@ namespace Blazorify.Bootstrap {
 		public EventCallback<Object?> OnHide { get; set; }
 
 		[Parameter]
+		public EventCallback<Object?> OnClose { get; set; }
+
+		[Parameter]
+		[BindClass("show", true)]
 		public Boolean Shown { get; set; } = false;
 
 		protected override async Task OnParametersSetAsync() {
@@ -46,7 +54,6 @@ namespace Blazorify.Bootstrap {
 			// TODO: implement OnShown event
 
 			await this.OnShow.InvokeAsync();
-
 
 			await this.InvokeAsync(this.StateHasChanged);
 		}
@@ -69,21 +76,11 @@ namespace Blazorify.Bootstrap {
 		}
 
 		public async Task Close(Object? payload = null) {
+			ArgumentNullException.ThrowIfNull(this.modalService);
+
 			await this.Hide(payload);
+
+			await this.modalService.Close(this);
 		}
-	}
-
-	public class BuiModalOptions {
-		public String? ID { get; set; } = $"{Guid.NewGuid()}";
-
-		public String? Class { get; set; }
-
-		public String? Style { get; set; }
-
-		public Boolean Fullscreen { get; set; } = false;
-	}
-
-	public class BuiModalOptions<TData> : BuiModalOptions {
-		public TData? Data { get; set; }
 	}
 }
