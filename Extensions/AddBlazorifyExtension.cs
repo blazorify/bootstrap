@@ -5,9 +5,9 @@ using Blazorify.Bootstrap;
 namespace Microsoft.Extensions.DependencyInjection {
 	public static class AddBlazorifyExtension {
 		public static IServiceCollection AddBlazorify(this IServiceCollection services) {
-			services.AddSingleton<BuiModalService>();
-			services.AddSingleton<BuiToastService>();
-			services.AddSingleton<ResourceFileManager>();
+			services.AddScoped<BuiModalService>();
+			services.AddScoped<BuiToastService>();
+			services.AddScoped<ResourceFileManager>();
 
 			return services;
 		}
