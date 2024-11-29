@@ -6,7 +6,7 @@
 		<ImplicitUsings>disable</ImplicitUsings>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>Blazorify Bootstrap</Title>
-		<Version>1.0.0-alpha2</Version>
+		<Version>1.0.0</Version>
 		<Authors>lambidu</Authors>
 		<Description>A powerful Blazor component library that seamlessly integrates Bootstrap's responsive design and styling capabilities with the simplicity and efficiency of Blazor.</Description>
 		<PackageProjectUrl>https://github.com/blazorify/bootstrap</PackageProjectUrl>
@@ -15,15 +15,31 @@
 		<PackageTags>blazor; bootstrap;</PackageTags>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<Company>Blazorify</Company>
+		<Configurations>Debug;Release;Preview</Configurations>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	  <NoWarn>1701;1702;IDE0058</NoWarn>
+		<NoWarn>1701;1702;IDE0058</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Preview|AnyCPU'">
+		<NoWarn>1701;1702;IDE0058</NoWarn>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <NoWarn>1701;1702;IDE0058</NoWarn>
+		<NoWarn>1701;1702;IDE0058</NoWarn>
 	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Preview'">
+		<BaseVersion>1.0.0</BaseVersion>
+		<VersionSuffix>preview.$([System.DateTime]::UtcNow.ToString("yyMMddHHmmss"))</VersionSuffix>
+		<Version>$(BaseVersion)-$(VersionSuffix)</Version>
+	</PropertyGroup>
+
+	<Target Name="ValidateVersion" BeforeTargets="Pack">
+		<Message Importance="High" Text="Packing version: $(Version)" />
+	</Target>
 
 	<ItemGroup>
 		<SupportedPlatform Include="browser" />
@@ -59,7 +75,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Scripts\callElementMethod.js" />
+		<None Remove="Resources\Scripts\callElementMethod.js" />
 	</ItemGroup>
 
 	<ItemGroup>
