@@ -25,6 +25,14 @@ namespace Blazorify.Bootstrap {
 		public String? Style { get; set; }
 
 		[Parameter]
+		[BindClass("border", Border.All)]
+		[BindClass("border-top", Border.Top)]
+		[BindClass("border-end", Border.End)]
+		[BindClass("border-bottom", Border.Bottom)]
+		[BindClass("border-start", Border.Start)]
+		public Border Border { get; set; } = Border.None;
+
+		[Parameter]
 		[BindClass("rounded", Rounded.All)]
 		[BindClass("rounded-top", Rounded.Top)]
 		[BindClass("rounded-bottom", Rounded.Bottom)]

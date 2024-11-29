@@ -50,6 +50,17 @@ namespace Blazorify.Bootstrap {
 		Large = 4,
 	}
 
+	public enum Border {
+		None = 0,
+
+		Top = 1,
+		End = 2,
+		Bottom = 4,
+		Start = 8,
+
+		All = Top | End | Bottom | Start,
+	}
+
 	public enum Rounded {
 		None = 0,
 		Top = 1,
