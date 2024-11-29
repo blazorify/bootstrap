@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using Blazorify.Bootstrap.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace Blazorify.Bootstrap {
@@ -14,7 +13,7 @@ namespace Blazorify.Bootstrap {
 			await base.OnAfterRenderAsync(firstRender);
 
 			this.modalService.PropertyChanged += async (s, e) => {
-				await this.InvokeAsync(StateHasChanged);
+				await this.InvokeAsync(this.StateHasChanged);
 			};
 		}
 	}

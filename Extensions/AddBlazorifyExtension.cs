@@ -1,8 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
 using Blazorify.Bootstrap;
-using Blazorify.Bootstrap.Services;
-using LibSassHost;
 
 namespace Microsoft.Extensions.DependencyInjection {
 	public static class AddBlazorifyExtension {

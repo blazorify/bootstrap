@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Blazorify.Bootstrap.Utilities;
 using Microsoft.AspNetCore.Components;
@@ -9,7 +7,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 using IComponent = Microsoft.AspNetCore.Components.IComponent;
 
-namespace Blazorify.Bootstrap.Services {
+namespace Blazorify.Bootstrap {
 	public class BuiModalService : ViewModelBase {
 		private RenderFragment? modalFragment = null;
 		public RenderFragment? ModalFragment {
@@ -18,7 +16,7 @@ namespace Blazorify.Bootstrap.Services {
 			}
 
 			set {
-				this.SetProperty(ref modalFragment, value);
+				this.SetProperty(ref this.modalFragment, value);
 			}
 		}
 

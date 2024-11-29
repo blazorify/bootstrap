@@ -1,13 +1,11 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
 
-namespace Blazorify.Bootstrap.Services {
+namespace Blazorify.Bootstrap {
 	public class BuiToastService {
 		public RenderFragment? modalFragment;
 

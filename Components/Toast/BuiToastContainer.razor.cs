@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using Blazorify.Bootstrap.Attributes;
-using Blazorify.Bootstrap.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace Blazorify.Bootstrap {
