@@ -1,14 +1,18 @@
 using Blazorify.Bootstrap;
 using LibSassHost;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Microsoft.AspNetCore.Builder {
 	public static class MapThemeEndpointExtension {
+		private static Dictionary<String, String> cache = [];
+
 		/// <summary>
 		/// Registers middleware to dynamically serve embedded CSS theme files.
 		/// Maps requests to the route pattern "/_blazorify/bootstrap/{themeName}.css"
@@ -28,6 +32,14 @@ namespace Microsoft.AspNetCore.Builder {
 				// Check if the path matches the theme route
 				if (path != null && path.StartsWith("/_blazorify/bootstrap/") && path.EndsWith(".css")) {
 					var themeName = Path.GetFileNameWithoutExtension(path);
+
+					if (cache.ContainsKey(themeName)) {
+						context.Response.StatusCode = StatusCodes.Status200OK;
+						context.Response.Headers["Content-Type"] = "text/css";
+
+						await context.Response.WriteAsync(cache[themeName]);
+						return;
+					}
 
 					// Ensure theme name is not empty or null
 					ArgumentException.ThrowIfNullOrWhiteSpace(themeName);
@@ -52,6 +64,8 @@ namespace Microsoft.AspNetCore.Builder {
 
 							context.Response.StatusCode = StatusCodes.Status200OK;
 							context.Response.Headers["Content-Type"] = "text/css";
+
+							cache.TryAdd(themeName, result.CompiledContent);
 
 							await context.Response.WriteAsync(result.CompiledContent);
 						} else {
