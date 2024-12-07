@@ -28,8 +28,6 @@ jobs:
       # Build the project with Preview configuration
       - name: Build the Project
         run: dotnet build --configuration Preview
-        env:
-          IsCI: true
 
       # Pack the NuGet package
       - name: Pack NuGet Package
