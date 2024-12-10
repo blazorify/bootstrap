@@ -1,0 +1,22 @@
+@namespace Blazorify.Bootstrap
+@inherits BuiContentComponentBase
+
+<CascadingValue Value="this">
+	<nav class="nav nav-tabs @ClassList">
+		@foreach (var tab in tabs) {
+			<div class="nav-link" role="button" @onclick="@(async () => await SetActiveTab(tabs.IndexOf(tab)))">
+				@tab.Header
+			</div>
+		}
+	</nav>
+
+	<nav class="tab-content">
+		@foreach (var tab in tabs) {
+			<div class="tab-pane fade @tab.GetClassList()">
+				@tab.ChildContent
+			</div>
+		}
+	</nav>
+
+	@ChildContent
+</CascadingValue>
