@@ -93,4 +93,11 @@ namespace Blazorify.Bootstrap {
 		XL = 16,
 		XXL = 32,
 	}
+
+	public enum NavType {
+		None = 0,
+		Tabs = 1,
+		Pills = 2,
+		Underline = 4,
+	}
 }

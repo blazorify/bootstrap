@@ -1,6 +1,7 @@
 using System;
 using Blazorify.Bootstrap.Attributes;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Blazorify.Bootstrap {
 	public partial class BuiNavLink : BuiContentComponentBase {
@@ -14,5 +15,8 @@ namespace Blazorify.Bootstrap {
 
 		[Parameter]
 		public String? Href { get; set; }
+
+		[Parameter]
+		public EventCallback<MouseEventArgs> OnClick { get; set; }
 	}
 }

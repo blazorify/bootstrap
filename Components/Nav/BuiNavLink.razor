@@ -1,6 +1,6 @@
 @namespace Blazorify.Bootstrap
 @inherits BuiContentComponentBase
 
-<a class="nav-link @ClassList" href="@Href" role="button">
+<a class="nav-link @ClassList" href="@Href" role="button" @onclick="OnClick">
 	@ChildContent
 </a>
