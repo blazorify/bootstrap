@@ -2,15 +2,19 @@
 @inherits BuiContentComponentBase
 
 <CascadingValue Value="this">
-	<nav class="nav nav-tabs @ClassList">
-		@foreach (var tab in tabs) {
-			<div class="nav-link" role="button" @onclick="@(async () => await SetActiveTab(tabs.IndexOf(tab)))">
-				@tab.Header
-			</div>
-		}
-	</nav>
+	@if (WithNav) {
+		<nav class="nav">
+			@foreach (var tab in tabs) {
+				<BuiNavItem>
+					<BuiNavLink Active="tab.Active" OnClick="@(async () => await SetActiveTab(tabs.IndexOf(tab)))">
+						@tab.Header
+					</BuiNavLink>
+				</BuiNavItem>
+			}
+		</nav>
+	}
 
-	<nav class="tab-content">
+	<nav class="tab-content @ClassList">
 		@foreach (var tab in tabs) {
 			<div class="tab-pane fade @tab.GetClassList()">
 				@tab.ChildContent

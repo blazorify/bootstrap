@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Blazorify.Bootstrap.Attributes;
@@ -11,12 +12,22 @@ namespace Blazorify.Bootstrap {
 		private Int32 activeTabIndex = 0;
 
 		[Parameter]
+		public Boolean WithNav { get; set; } = true;
+
+		[Parameter]
 		[BindClass("flex-column", true)]
 		public Boolean Vertical { get; set; } = false;
 
-		public BuiTab? ActiveItem {
+		[Parameter]
+		[SuppressMessage("Usage", "BL0007:Component parameters should be auto properties")]
+		public Int32 ActiveTabIndex {
 			get {
-				return this.tabs.ElementAtOrDefault(activeTabIndex);
+				return this.activeTabIndex;
+			}
+			set {
+				Task.Run(async () => {
+					await this.SetActiveTab(value);
+				});
 			}
 		}
 
