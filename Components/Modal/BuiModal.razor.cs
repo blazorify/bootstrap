@@ -16,6 +16,15 @@ namespace Blazorify.Bootstrap {
 		public Boolean Fullscreen { get; set; } = false;
 
 		[Parameter]
+		public Boolean Scrollable { get; set; } = false;
+
+		[Parameter]
+		public Boolean Centered { get; set; } = false;
+
+		[Parameter]
+		public Size Size { get; set; } = Size.Normal;
+
+		[Parameter]
 		public RenderFragment<BuiModalHeader>? Header { get; set; }
 
 		[Parameter]
@@ -25,6 +34,14 @@ namespace Blazorify.Bootstrap {
 		public RenderFragment<BuiModalFooter>? Footer { get; set; }
 
 		[Parameter]
+		[BindClass("fade", true)]
+		public Boolean Fade { get; set; } = true;
+
+		[Parameter]
+		[BindClass("show", true)]
+		public Boolean Shown { get; set; } = false;
+
+		[Parameter]
 		public EventCallback<Object?> OnShow { get; set; }
 
 		[Parameter]
@@ -32,10 +49,6 @@ namespace Blazorify.Bootstrap {
 
 		[Parameter]
 		public EventCallback<Object?> OnClose { get; set; }
-
-		[Parameter]
-		[BindClass("show", true)]
-		public Boolean Shown { get; set; } = false;
 
 		protected override async Task OnParametersSetAsync() {
 			ArgumentNullException.ThrowIfNull(this.jsRuntime);

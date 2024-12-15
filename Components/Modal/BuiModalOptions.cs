@@ -14,6 +14,12 @@ namespace Blazorify.Bootstrap {
 
 		public Boolean Fullscreen { get; set; } = false;
 
+		public Boolean Scrollable { get; set; } = false;
+
+		public Boolean Centered { get; set; } = false;
+
+		public Size Size { get; set; } = Size.Normal;
+
 		internal readonly Dictionary<String, Object?> ComponentData = [];
 
 		public void Data<TProperty>(Expression<Func<TComponent, TProperty>> propertyExpression, TProperty value) {

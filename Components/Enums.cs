@@ -48,6 +48,7 @@ namespace Blazorify.Bootstrap {
 		Normal = 1,
 		Small = 2,
 		Large = 4,
+		ExtraLarge = 8,
 	}
 
 	public enum Border {
