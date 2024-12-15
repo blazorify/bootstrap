@@ -19,15 +19,11 @@ namespace Blazorify.Bootstrap {
 			}
 		}
 
-		public async Task<BuiModal> Show<TComponent>(Action<BuiModalOptions<Object?>>? options = null) where TComponent : IComponent {
-			return await this.Show<TComponent, Object?>(options);
-		}
-
-		public async Task<BuiModal> Show<TComponent, TData>(Action<BuiModalOptions<TData>>? options = null) where TComponent : IComponent {
+		public async Task<BuiModal> Show<TComponent>(Action<BuiModalOptions<TComponent>>? options = null) where TComponent : IComponent {
 			await Task.CompletedTask;
 
 			var sequence = 0;
-			var modalOptions = new BuiModalOptions<TData>();
+			var modalOptions = new BuiModalOptions<TComponent>();
 
 			if (options != null) {
 				options.Invoke(modalOptions);
@@ -38,14 +34,18 @@ namespace Blazorify.Bootstrap {
 			var modalFragment = new RenderFragment<BuiModal>(target => builder => {
 				builder.OpenComponent<BuiModal>(sequence++);
 
-				if (modalOptions.Data != null) {
-					sequence = builder.AddAttributesFromObject(sequence, modalOptions, [nameof(modalOptions.Data)]);
-				}
+				sequence = builder.AddAttributesFromObject(sequence, modalOptions, [nameof(modalOptions.ComponentData)]);
 
 				builder.AddAttribute(sequence++, nameof(BuiModal.Shown), true);
 				builder.AddAttribute(sequence++, nameof(BuiModal.ChildContent), (RenderFragment)(contentBuilder => {
-					contentBuilder.OpenComponent<TComponent>(0);
-					contentBuilder.AddAttributesFromObject(1, modalOptions.Data);
+					var componentSequence = 0;
+
+					contentBuilder.OpenComponent<TComponent>(componentSequence++);
+
+					foreach (var kvp in modalOptions.ComponentData) {
+						contentBuilder.AddAttribute(componentSequence++, kvp.Key, kvp.Value);
+					}
+
 					contentBuilder.CloseComponent();
 				}));
 
