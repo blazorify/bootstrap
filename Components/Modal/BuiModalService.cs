@@ -1,41 +1,33 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
-using Blazorify.Bootstrap.Utilities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Blazorify.Bootstrap {
-	public class BuiModalService : ViewModelBase {
+	public class BuiModalService {
 
-		private ObservableCollection<(BuiModal instance, RenderFragment<BuiModal> fragment)> modalInstances = [];
-		public ObservableCollection<(BuiModal instance, RenderFragment<BuiModal> fragment)> ModalInstances {
-			get {
-				return this.modalInstances;
-			}
-			set {
-				this.SetProperty(ref this.modalInstances, value);
-			}
-		}
+		private readonly Dictionary<BuiModal, RenderFragment> modalInstances = [];
+
+		internal ObservableCollection<RenderFragment> ModalFragments { get; private set; } = [];
 
 		public async Task<BuiModal> Show<TComponent>(Action<BuiModalOptions<TComponent>>? options = null) where TComponent : IComponent {
-			await Task.CompletedTask;
-
 			var sequence = 0;
 			var modalOptions = new BuiModalOptions<TComponent>();
 
-			if (options != null) {
-				options.Invoke(modalOptions);
-			}
+			options?.Invoke(modalOptions);
 
-			var modalInstance = new BuiModal();
+			// TaskCompletionSource to capture the rendered instance
+			var tcs = new TaskCompletionSource<BuiModal>();
 
-			var modalFragment = new RenderFragment<BuiModal>(target => builder => {
+			var modalFragment = new RenderFragment(builder => {
 				builder.OpenComponent<BuiModal>(sequence++);
 
+				// Set modal options
 				sequence = builder.AddAttributesFromObject(sequence, modalOptions, [nameof(modalOptions.ComponentData)]);
 
+				// Render child component and show the modal
 				builder.AddAttribute(sequence++, nameof(BuiModal.Shown), true);
 				builder.AddAttribute(sequence++, nameof(BuiModal.ChildContent), (RenderFragment)(contentBuilder => {
 					var componentSequence = 0;
@@ -49,21 +41,31 @@ namespace Blazorify.Bootstrap {
 					contentBuilder.CloseComponent();
 				}));
 
+				// Capture the modal instance
+				builder.AddComponentReferenceCapture(sequence++, instance => {
+					tcs.TrySetResult((BuiModal)instance);
+				});
+
 				builder.CloseComponent();
 			});
 
-			this.ModalInstances.Add((modalInstance, modalFragment));
+			// Add the modal fragment to the collection so it gets rendered
+			this.ModalFragments.Add(modalFragment);
+
+			// Wait for the rendered instance
+			var modalInstance = await tcs.Task;
+
+			// Map rendered modal with the instance so we know which one to close and/or send events to
+			this.modalInstances.Add(modalInstance, modalFragment);
 
 			return modalInstance;
 		}
 
-		public async Task Close(BuiModal instance) {
+		public async Task Close(BuiModal modalInstance) {
 			await Task.CompletedTask;
 
-			var tuple = this.modalInstances.FirstOrDefault(m => String.Equals(m.instance.ID, instance.ID));
-
-			if (tuple.instance != null && tuple.fragment != null) {
-				this.ModalInstances.Remove(tuple);
+			if (this.modalInstances.TryGetValue(modalInstance, out var modalFragment)) {
+				this.ModalFragments.Remove(modalFragment);
 			}
 		}
 	}

@@ -13,11 +13,7 @@ namespace Blazorify.Bootstrap {
 			await base.OnAfterRenderAsync(firstRender);
 
 			if (firstRender) {
-				this.modalService.PropertyChanged += async (s, e) => {
-					await this.InvokeAsync(this.StateHasChanged);
-				};
-
-				this.modalService.ModalInstances.CollectionChanged += async (s, e) => {
+				this.modalService.ModalFragments.CollectionChanged += async (s, e) => {
 					await this.InvokeAsync(this.StateHasChanged);
 				};
 			}

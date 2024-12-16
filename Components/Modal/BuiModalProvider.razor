@@ -1,9 +1,9 @@
 @namespace Blazorify.Bootstrap
 @inherits BuiComponentBase
 
-@if (modalService != null && modalService.ModalInstances.Count > 0) {
-	foreach (var (instance, fragment) in modalService.ModalInstances) {
-		@fragment(instance)
+@if (modalService != null && modalService.ModalFragments.Count > 0) {
+	foreach (var modalFragment in modalService.ModalFragments) {
+		@modalFragment
 	}
 
 	<div class="modal-backdrop fade show"></div>

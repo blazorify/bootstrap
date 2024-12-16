@@ -50,6 +50,10 @@ namespace Blazorify.Bootstrap {
 		[Parameter]
 		public EventCallback<Object?> OnClose { get; set; }
 
+		public event EventHandler<Object?>? Hidden;
+
+		public event EventHandler<Object?>? Closed;
+
 		protected override async Task OnParametersSetAsync() {
 			ArgumentNullException.ThrowIfNull(this.jsRuntime);
 
@@ -81,9 +85,9 @@ namespace Blazorify.Bootstrap {
 
 			// TODO: implement OnHidden event
 
-			if (payload != null) {
-				await this.OnHide.InvokeAsync(payload);
-			}
+			await this.OnHide.InvokeAsync(payload);
+
+			this.Hidden?.Invoke(this, payload);
 
 			await this.InvokeAsync(this.StateHasChanged);
 		}
@@ -94,6 +98,10 @@ namespace Blazorify.Bootstrap {
 			await this.Hide(payload);
 
 			await this.modalService.Close(this);
+
+			this.Closed?.Invoke(this, payload);
+
+			await this.InvokeAsync(this.StateHasChanged);
 		}
 	}
 }
