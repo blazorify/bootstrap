@@ -29,6 +29,8 @@ namespace Blazorify.Bootstrap {
 			await base.OnAfterRenderAsync(firstRender);
 
 			if (firstRender) {
+				this.toastService.AutoClose = this.AutoClose;
+
 				this.toastService.Toasts.CollectionChanged += async (s, e) => {
 					await this.InvokeAsync(this.StateHasChanged);
 				};

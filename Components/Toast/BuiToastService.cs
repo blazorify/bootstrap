@@ -3,13 +3,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
-using Microsoft.AspNetCore.Components;
 
 namespace Blazorify.Bootstrap {
 	public class BuiToastService {
-		public RenderFragment? modalFragment;
+		internal ObservableCollection<BuiToastOptions> Toasts = [];
 
-		public ObservableCollection<BuiToastOptions> Toasts = [];
+		internal TimeSpan? AutoClose = null;
 
 		public async Task Show(Action<BuiToastOptions>? options = null) {
 			await this.Show<Object?>(options);
@@ -23,10 +22,12 @@ namespace Blazorify.Bootstrap {
 
 				this.Toasts.Add(toastOptions);
 
-				if (toastOptions.AutoClose != null) {
-					var timer = new Timer(toastOptions.AutoClose.Value);
+				var autoClose = toastOptions.AutoClose ?? this.AutoClose;
 
-					timer.Elapsed += async (s, e) => await this.Hide(toastOptions.ID!);
+				if (autoClose != null) {
+					var timer = new Timer(autoClose.Value);
+
+					timer.Elapsed += async (s, e) => await this.Hide(toastOptions.ID);
 					timer.Start();
 				}
 			}
@@ -35,13 +36,13 @@ namespace Blazorify.Bootstrap {
 		}
 
 		public async Task Hide(String toastID) {
+			await Task.CompletedTask;
+
 			var toast = this.Toasts.FirstOrDefault(m => m.ID == toastID);
 
 			if (toast != null) {
 				this.Toasts.Remove(toast);
 			}
-
-			await Task.CompletedTask;
 		}
 	}
 }
