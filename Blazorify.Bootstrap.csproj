@@ -57,12 +57,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Update="Components\Modal\BuiModalDialog.razor">
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	  </Content>
-	</ItemGroup>
-
-	<ItemGroup>
 		<None Update="LICENSE">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
