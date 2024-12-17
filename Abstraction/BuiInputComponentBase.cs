@@ -43,7 +43,6 @@ namespace Blazorify.Bootstrap {
 
 		protected virtual async Task HandleInput(ChangeEventArgs args) {
 			if (this.TryParseValueFromString(args.Value, out var value, out var error)) {
-
 				this.Value = value;
 
 				await this.ValueChanged.InvokeAsync(value);

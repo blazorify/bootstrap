@@ -11,6 +11,7 @@
 		   name="@Name"
 		   value="@(OptionValue != null ? OptionValue.Invoke(item) : item)"
 		   checked="@(item?.Equals(Value) == true)"
+		   disabled="@Disabled"
 		   autocomplete="off">
 
 	<label class="btn @ClassList" for="@itemID">

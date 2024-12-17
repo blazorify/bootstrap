@@ -2,6 +2,6 @@
 @inherits BuiInputComponentBase<T>
 @typeparam T
 
-<option @key="Item" value="@(OptionValue != null ? OptionValue.Invoke(Item) : Item)" selected="@(Selected || Item!.Equals(Value))" @onclick="HandleSelect">
+<option @key="Item" value="@(OptionValue != null ? OptionValue.Invoke(Item) : Item)" selected="@(Selected || Item!.Equals(Value))" @onclick="HandleSelect" disabled="@Disabled">
 	@(OptionLabel != null ? OptionLabel.Invoke(Item) : Item)
 </option>
