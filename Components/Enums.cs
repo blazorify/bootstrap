@@ -51,6 +51,13 @@ namespace Blazorify.Bootstrap {
 		ExtraLarge = 8,
 	}
 
+	public enum TextDecoration {
+		Unset = 0,
+		None = 1,
+		Underline = 2,
+		LineThrough = 4,
+	}
+
 	public enum Border {
 		None = 0,
 

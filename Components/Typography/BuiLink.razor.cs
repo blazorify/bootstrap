@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Blazorify.Bootstrap.Attributes;
 using Microsoft.AspNetCore.Components;
 
 namespace Blazorify.Bootstrap {
@@ -9,6 +10,12 @@ namespace Blazorify.Bootstrap {
 
 		[Parameter]
 		public String? Href { get; set; }
+
+		[Parameter]
+		[BindClass("text-decoration-none", TextDecoration.None)]
+		[BindClass("text-decoration-underline", TextDecoration.Underline)]
+		[BindClass("text-decoration-line-through", TextDecoration.LineThrough)]
+		public TextDecoration Decoration { get; set; } = TextDecoration.Unset;
 
 		protected override async Task OnParametersSetAsync() {
 			ArgumentNullException.ThrowIfNull(this.navigationManager);
