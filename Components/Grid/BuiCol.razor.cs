@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Components;
 namespace Blazorify.Bootstrap {
 	public partial class BuiCol : BuiContentComponentBase {
 		[Parameter]
-		[BindClass("col-xs-{0}")]
+		[BindClass("col-{0}")]
 		public String? XS { get; set; }
 
 		[Parameter]
