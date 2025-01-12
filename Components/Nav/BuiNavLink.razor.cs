@@ -23,21 +23,37 @@ namespace Blazorify.Bootstrap {
 		[Parameter]
 		public EventCallback<MouseEventArgs> OnClick { get; set; }
 
-		protected override async Task OnParametersSetAsync() {
+		protected override async Task OnAfterRenderAsync(Boolean firstRender) {
 			ArgumentNullException.ThrowIfNull(this.navigationManager);
 
+			await base.OnAfterRenderAsync(firstRender);
+
+			if (firstRender) {
+				this.navigationManager.LocationChanged += async (s, e) => {
+					await this.SetActiveState();
+				};
+			}
+		}
+
+		protected override async Task OnParametersSetAsync() {
 			await base.OnParametersSetAsync();
 
-			if (!String.IsNullOrEmpty(this.Href)) {
-				var currentPath = this.navigationManager.ToAbsoluteUri(this.navigationManager.Uri).AbsolutePath;
-				var targetPath = this.navigationManager.ToAbsoluteUri(this.Href).AbsolutePath;
+			await this.SetActiveState();
+		}
 
-				if (currentPath.Equals(targetPath, StringComparison.OrdinalIgnoreCase)) {
-					this.Active = true;
-				}
+		private async Task SetActiveState() {
+			ArgumentNullException.ThrowIfNull(this.navigationManager);
 
-				await this.InvokeAsync(StateHasChanged);
+			if (String.IsNullOrEmpty(this.Href)) {
+				return;
 			}
+
+			var currentPath = this.navigationManager.ToAbsoluteUri(this.navigationManager.Uri).AbsolutePath;
+			var targetPath = this.navigationManager.ToAbsoluteUri(this.Href).AbsolutePath;
+
+			this.Active = currentPath.Equals(targetPath, StringComparison.OrdinalIgnoreCase);
+
+			await this.InvokeAsync(StateHasChanged);
 		}
 	}
 }
