@@ -26,11 +26,11 @@
 		<NoWarn>1701;1702;IDE0058</NoWarn>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)' == 'Preview'">
+	<!--<PropertyGroup Condition="'$(Configuration)' == 'Preview'">
 		<BaseVersion>1.0.0</BaseVersion>
 		<VersionSuffix>preview.$([System.DateTime]::UtcNow.ToString("yyMMddHHmmss"))</VersionSuffix>
 		<Version>$(BaseVersion)-$(VersionSuffix)</Version>
-	</PropertyGroup>
+	</PropertyGroup>-->
 
 	<ItemGroup>
 		<PackageReference Include="LibSassHost" Version="1.5.0" />
