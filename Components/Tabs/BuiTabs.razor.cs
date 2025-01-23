@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
-using Blazorify.Bootstrap.Attributes;
 using Microsoft.AspNetCore.Components;
 
 namespace Blazorify.Bootstrap {
@@ -15,7 +14,6 @@ namespace Blazorify.Bootstrap {
 		public Boolean WithNav { get; set; } = true;
 
 		[Parameter]
-		[BindClass("flex-column", true)]
 		public Boolean Vertical { get; set; } = false;
 
 		[Parameter]

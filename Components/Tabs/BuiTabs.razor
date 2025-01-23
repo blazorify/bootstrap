@@ -3,7 +3,7 @@
 
 <CascadingValue Value="this">
 	@if (WithNav) {
-		<nav class="nav">
+		<nav class="nav @(Vertical ? "flex-column" : "")">
 			@foreach (var tab in tabs) {
 				<BuiNavItem>
 					<BuiNavLink Active="tab.Active" OnClick="@(async () => await SetActiveTab(tabs.IndexOf(tab)))">
