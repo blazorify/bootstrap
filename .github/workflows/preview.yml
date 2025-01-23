@@ -11,31 +11,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
       - name: Checkout Code
         uses: actions/checkout@v3
+      
+      - name: Generate Preview Version
+        id: version
+        run: |
+          TIMESTAMP=$(date -u +"%y%m%d%H%M%S")
+          echo "VERSION=1.0.0-preview.$TIMESTAMP" >> $GITHUB_ENV
 
-      # Setup .NET SDK
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '9.0'
 
-      # Restore dependencies
       - name: Restore Dependencies
         run: dotnet restore
 
-      # Build the project with Preview configuration
       - name: Build the Project
-        run: dotnet build --configuration Preview
+        run: dotnet build --configuration Preview /p:Version=${{ env.VERSION }}
 
-      # Pack the NuGet package
       - name: Pack NuGet Package
-        run: dotnet pack --configuration Preview --output ./artifacts
+        run: dotnet pack --configuration Preview --output ./artifacts /p:Version=${{ env.VERSION }}
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
 
-      # Publish to NuGet
       - name: Publish to NuGet
         run: |
           dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
