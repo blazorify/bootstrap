@@ -57,52 +57,57 @@ namespace Blazorify.Bootstrap {
 					validationErrorMessage = null;
 					return true;
 
-				case String stringValue when typeof(TValue) == typeof(Int32) && Int32.TryParse(stringValue, out var intValue):
+				case String stringValue when (typeof(TValue) == typeof(Int64) || typeof(TValue) == typeof(Int64?)) && Int64.TryParse(stringValue, out var longValue):
+					result = (TValue)(Object)longValue;
+					validationErrorMessage = null;
+					return true;
+
+				case String stringValue when (typeof(TValue) == typeof(UInt64) || typeof(TValue) == typeof(UInt64?)) && UInt64.TryParse(stringValue, out var ulongValue):
+					result = (TValue)(Object)ulongValue;
+					validationErrorMessage = null;
+					return true;
+
+				case String stringValue when (typeof(TValue) == typeof(Int32) || typeof(TValue) == typeof(Int32?)) && Int32.TryParse(stringValue, out var intValue):
 					result = (TValue)(Object)intValue;
 					validationErrorMessage = null;
 					return true;
 
-				case String stringValue when typeof(TValue) == typeof(Int32?) && Int32.TryParse(stringValue, out var intValue):
-					result = (TValue)(Object)intValue;
+				case String stringValue when (typeof(TValue) == typeof(UInt32) || typeof(TValue) == typeof(UInt32?)) && UInt32.TryParse(stringValue, out var uintValue):
+					result = (TValue)(Object)uintValue;
 					validationErrorMessage = null;
 					return true;
 
-				case String stringValue when typeof(TValue) == typeof(Double) && Double.TryParse(stringValue, out var doubleValue):
+				case String stringValue when (typeof(TValue) == typeof(Int16) || typeof(TValue) == typeof(Int16?)) && Int16.TryParse(stringValue, out var shortValue):
+					result = (TValue)(Object)shortValue;
+					validationErrorMessage = null;
+					return true;
+
+				case String stringValue when (typeof(TValue) == typeof(UInt16) || typeof(TValue) == typeof(UInt16?)) && UInt16.TryParse(stringValue, out var ushortValue):
+					result = (TValue)(Object)ushortValue;
+					validationErrorMessage = null;
+					return true;
+
+				case String stringValue when (typeof(TValue) == typeof(Byte) || typeof(TValue) == typeof(Byte?)) && Byte.TryParse(stringValue, out var byteValue):
+					result = (TValue)(Object)byteValue;
+					validationErrorMessage = null;
+					return true;
+
+				case String stringValue when (typeof(TValue) == typeof(Double) || typeof(TValue) == typeof(Double?)) && Double.TryParse(stringValue, out var doubleValue):
 					result = (TValue)(Object)doubleValue;
 					validationErrorMessage = null;
 					return true;
 
-				case String stringValue when typeof(TValue) == typeof(Double?) && Double.TryParse(stringValue, out var doubleValue):
-					result = (TValue)(Object)doubleValue;
-					validationErrorMessage = null;
-					return true;
-
-				case String stringValue when typeof(TValue) == typeof(Decimal) && Decimal.TryParse(stringValue, out var decimalValue):
+				case String stringValue when (typeof(TValue) == typeof(Decimal) || typeof(TValue) == typeof(Decimal?)) && Decimal.TryParse(stringValue, out var decimalValue):
 					result = (TValue)(Object)decimalValue;
 					validationErrorMessage = null;
 					return true;
 
-				case String stringValue when typeof(TValue) == typeof(Decimal?) && Decimal.TryParse(stringValue, out var decimalValue):
-					result = (TValue)(Object)decimalValue;
-					validationErrorMessage = null;
-					return true;
-
-				case String stringValue when typeof(TValue) == typeof(DateTime) && DateTime.TryParse(stringValue, out var dateTimeValue):
+				case String stringValue when (typeof(TValue) == typeof(DateTime) || typeof(TValue) == typeof(DateTime?)) && DateTime.TryParse(stringValue, out var dateTimeValue):
 					result = (TValue)(Object)dateTimeValue;
 					validationErrorMessage = null;
 					return true;
 
-				case String stringValue when typeof(TValue) == typeof(DateTime?) && DateTime.TryParse(stringValue, out var dateTimeValue):
-					result = (TValue)(Object)dateTimeValue;
-					validationErrorMessage = null;
-					return true;
-
-				case String stringValue when typeof(TValue) == typeof(Boolean) && Boolean.TryParse(stringValue, out var boolValue):
-					result = (TValue)(Object)boolValue;
-					validationErrorMessage = null;
-					return true;
-
-				case String stringValue when typeof(TValue) == typeof(Boolean?) && Boolean.TryParse(stringValue, out var boolValue):
+				case String stringValue when (typeof(TValue) == typeof(Boolean) || typeof(TValue) == typeof(Boolean?)) && Boolean.TryParse(stringValue, out var boolValue):
 					result = (TValue)(Object)boolValue;
 					validationErrorMessage = null;
 					return true;
