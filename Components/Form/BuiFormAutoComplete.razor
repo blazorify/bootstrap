@@ -17,6 +17,6 @@
 
 <datalist id="@($"{ID}_DataList")">
 	@foreach (var item in Items) {
-		<BuiFormOption Item="item" OptionLabel="OptionLabel" OptionValue="OptionValue" Selected="@(item?.Equals(Value) == true)" />
+		<BuiFormOption Value="item" OptionLabel="OptionLabel" OptionValue="OptionValue" Selected="@(item?.Equals(Value) == true)" />
 	}
 </datalist>

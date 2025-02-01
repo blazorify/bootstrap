@@ -3,37 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
-using Newtonsoft.Json.Linq;
 
 namespace Blazorify.Bootstrap {
 	public partial class BuiFormSelect<T> : BuiInputComponentBase<T> {
+		private Dictionary<Int32, T> itemsMap = [];
+
 		[Parameter]
-		[EditorRequired]
 		public IEnumerable<T> Items { get; set; } = [];
 
 		[Parameter]
-		[EditorRequired]
-		public Func<T, Object?>? OptionValue { get; set; } = null;
+		public RenderFragment? ChildContent { get; set; }
 
 		[Parameter]
-		[EditorRequired]
-		public Func<T, Object?>? OptionLabel { get; set; } = null;
+		public Func<T, Object?>? Label { get; set; } = null;
+
+		protected override async Task OnParametersSetAsync() {
+			await base.OnParametersSetAsync();
+
+			if (this.Items != null) {
+				this.itemsMap = this.Items.ToDictionary(item => item!.GetHashCode(), item => item);
+			}
+		}
 
 		protected override async Task HandleChange(ChangeEventArgs args) {
-			ArgumentNullException.ThrowIfNull(this.OptionValue);
+			if (this.ChildContent != null) {
+				await this.ValueChanged.InvokeAsync((T?)args.Value);
+				await this.OnChange.InvokeAsync((T?)args.Value);
 
-			var selectedItem = this.Items.FirstOrDefault(item => {
-				var itemValue = this.OptionValue.Invoke(item);
+				return;
+			}
 
-				if (itemValue != null) {
-					return $"{itemValue}".Equals(args.Value);
-				}
+			if (Int32.TryParse($"{args.Value}", out var key) && this.itemsMap.TryGetValue(key, out var value)) {
+				await this.ValueChanged.InvokeAsync(value);
+				await this.OnChange.InvokeAsync(value);
 
-				return false;
-			});
-
-			await this.ValueChanged.InvokeAsync(selectedItem);
-			await this.OnChange.InvokeAsync(selectedItem);
+				return;
+			}
 		}
 	}
 }
