@@ -1,7 +1,7 @@
 @namespace Blazorify.Bootstrap
 @inherits BuiContentComponentBase
 
-<li class="breadcrumb-item @ClassList">
+<li class="breadcrumb-item @ClassList" style="@Style">
 	@if (!String.IsNullOrWhiteSpace(Href)) {
 		<a href="@Href" role="button">@ChildContent</a>
 	} else {

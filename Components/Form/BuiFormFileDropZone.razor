@@ -1,7 +1,7 @@
 @namespace Blazorify.Bootstrap
 @inherits BuiInputComponentBase<IReadOnlyList<IBrowserFile>>
 
-<div class="@Class" @onclick="HandleClick" role="button">
+<div class="@Class" style="@Style" @onclick="HandleClick" role="button">
 	@if (PreviewTemplate != null) {
 		@PreviewTemplate(Value!)
 	} else {

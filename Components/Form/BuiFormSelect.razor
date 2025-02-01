@@ -2,7 +2,7 @@
 @inherits BuiInputComponentBase<T>
 @typeparam T
 
-<select class="form-select @ClassList" id="@ID" name="@Name" disabled="@Disabled" @onchange="(async (args) => await HandleChange(args))">
+<select class="form-select @ClassList" style="@Style" id="@ID" name="@Name" disabled="@Disabled" @onchange="(async (args) => await HandleChange(args))">
 	<CascadingValue Value="this">
 	@foreach (var item in Items) {
 		<BuiFormOption Item="item" OptionLabel="OptionLabel" OptionValue="OptionValue" Selected="@(item?.Equals(Value) == true)" />

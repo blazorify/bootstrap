@@ -5,7 +5,7 @@
 	@if (WithNav) {
 		<nav class="nav @(Vertical ? "flex-column" : "")">
 			@foreach (var tab in tabs) {
-				<BuiNavItem>
+				<BuiNavItem Class="@tab.Class" Style="@tab.Style">
 					<BuiNavLink Active="tab.Active" OnClick="@(async () => await SetActiveTab(tabs.IndexOf(tab)))">
 						@tab.Header
 					</BuiNavLink>
@@ -14,7 +14,7 @@
 		</nav>
 	}
 
-	<nav class="tab-content @ClassList">
+	<nav class="tab-content @ClassList" style="@Style">
 		@foreach (var tab in tabs) {
 			<div class="tab-pane fade @tab.GetClassList()">
 				@tab.ChildContent
