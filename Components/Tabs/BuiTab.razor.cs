@@ -24,9 +24,11 @@ namespace Blazorify.Bootstrap {
 		}
 
 		public async Task SetActive(Boolean active) {
-			this.Active = active;
+			if (this.Active != active) {
+				this.Active = active;
 
-			await this.InvokeAsync(this.StateHasChanged);
+				await this.InvokeAsync(this.StateHasChanged);
+			}
 		}
 
 		public String GetClassList() {
