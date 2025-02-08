@@ -1,0 +1,18 @@
+@namespace Blazorify.Bootstrap
+@inherits BuiInputComponentBase<Boolean>
+
+<div class="form-check form-switch @ClassList" style="@Style">
+	<input type="checkbox"
+		   class="form-check-input"
+		   id="@ID"
+		   name="@Name"
+		   @onchange="HandleChange"
+		   checked="@(Value == true)"
+		   disabled="@Disabled"
+		   autocomplete="off"
+		   role="switch">
+
+	<label class="form-check-label" for="@ID">
+		@ChildContent
+	</label>
+</div>
