@@ -12,6 +12,12 @@ namespace Blazorify.Bootstrap {
 		public String? Href { get; set; }
 
 		[Parameter]
+		public String? Target { get; set; }
+
+		[Parameter]
+		public String? Rel { get; set; }
+
+		[Parameter]
 		[BindClass("text-decoration-none", TextDecoration.None)]
 		[BindClass("text-decoration-underline", TextDecoration.Underline)]
 		[BindClass("text-decoration-line-through", TextDecoration.LineThrough)]
