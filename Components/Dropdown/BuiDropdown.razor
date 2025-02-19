@@ -1,7 +1,7 @@
 @namespace Blazorify.Bootstrap
 @inherits BuiContentComponentBase
 
-<div class="dropdown @ClassList" style="@Style">
+<div @ref="elementReference" class="dropdown @ClassList" style="@Style">
 	<CascadingValue Value="State">
 		@ChildContent
 	</CascadingValue>

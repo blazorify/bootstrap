@@ -87,10 +87,9 @@ namespace Blazorify.Bootstrap {
 	}
 
 	public enum AutoClose {
-		Always = 1,
-		Inside = 2,
-		Outside = 4,
-		Manually = 8,
+		ClickInside = 1,
+		ClickOutside = 2,
+		Manually = 4,
 	}
 
 	public enum NavbarExpand {
