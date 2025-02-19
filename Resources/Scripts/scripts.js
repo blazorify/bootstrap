@@ -16,7 +16,7 @@ window.Blazorify = (() => {
 			for (let listener of Object.values(this.#clickListeners)) {
 				let element = event.target.closest(`[_bl_${listener.elementID}]`);
 
-				if ((listener.mode === 'inside' && element) || (listener.mode === 'outside' && !element)) {
+				if (listener.mode === 'inside' || (listener.mode === 'outside' && !element)) {
 					await listener.dotnetReference.invokeMethodAsync(listener.callbackName, event, listener.elementID);
 				}
 			}
