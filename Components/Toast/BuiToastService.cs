@@ -35,6 +35,51 @@ namespace Blazorify.Bootstrap {
 			await Task.CompletedTask;
 		}
 
+		public async Task Success(String message) {
+			await this.Show<Object?>(options => {
+				options.Variant = Variant.Success;
+				options.Body = message;
+			});
+		}
+
+		public async Task Success(String title, String message) {
+			await this.Show<Object?>(options => {
+				options.Variant = Variant.Success;
+				options.Title = title;
+				options.Body = message;
+			});
+		}
+
+		public async Task Warning(String message) {
+			await this.Show<Object?>(options => {
+				options.Variant = Variant.Warning;
+				options.Body = message;
+			});
+		}
+
+		public async Task Warning(String title, String message) {
+			await this.Show<Object?>(options => {
+				options.Variant = Variant.Warning;
+				options.Title = title;
+				options.Body = message;
+			});
+		}
+
+		public async Task Error(String message) {
+			await this.Show<Object?>(options => {
+				options.Variant = Variant.Danger;
+				options.Body = message;
+			});
+		}
+
+		public async Task Error(String title, String message) {
+			await this.Show<Object?>(options => {
+				options.Variant = Variant.Danger;
+				options.Title = title;
+				options.Body = message;
+			});
+		}
+
 		public async Task Hide(String toastID) {
 			await Task.CompletedTask;
 
