@@ -1,0 +1,16 @@
+@namespace Blazorify.Bootstrap
+@inherits BuiContentComponentBase
+
+
+@if (Head == null)
+{
+	<th class="@ClassList" style="@Style">
+		@ChildContent
+	</th>
+}
+else
+{
+	<td class="@ClassList" style="@Style">
+		@ChildContent
+	</td>
+}

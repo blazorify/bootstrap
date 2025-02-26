@@ -10,6 +10,16 @@ namespace Blazorify.Bootstrap {
 		Evenly = 32,
 	}
 
+	public enum Align {
+		Default = 0,
+		Baseline = 1,
+		Top = 2,
+		Middle = 4,
+		Bottom = 8,
+		TextTop = 16,
+		TextBottom = 32,
+	}
+
 	public enum Placement {
 		Start = 1,
 		Top = 2,
