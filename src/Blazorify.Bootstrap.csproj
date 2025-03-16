@@ -48,6 +48,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources/bootstrap/**/*.scss" />
     <EmbeddedResource Include="Resources/Scripts/**/*.js" />
+    <EmbeddedResource Include="Resources/index.scss" />
   </ItemGroup>
 
   <ItemGroup>
