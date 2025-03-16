@@ -1,0 +1,33 @@
+@inherits LayoutComponentBase
+
+<BuiNavbar Class="sticky-top bg-body-tertiary" Expand="NavbarExpand.Always">
+	<Brand>
+		<BuiLink Decoration="TextDecoration.None" Href="/">
+			Blazorify
+		</BuiLink>
+	</Brand>
+
+	<Nav>
+		<BuiNav Class="ms-auto">
+			<BuiNavLink Href="/">
+				Home
+			</BuiNavLink>
+
+			<BuiNavLink Href="/bootstrap">
+				Bootstrap
+			</BuiNavLink>
+
+			<BuiNavLink Href="/javascript">
+				JavaScript
+			</BuiNavLink>
+		</BuiNav>
+	</Nav>
+</BuiNavbar>
+
+<BuiContainer Class="my-4">
+	<BuiRow>
+		<BuiCol>
+			@Body
+		</BuiCol>
+	</BuiRow>
+</BuiContainer>

@@ -1,0 +1,14 @@
+<div class="d-flex flex-column border rounded my-3 demo-example">
+	<div class="border-bottom p-4 demo-example-preview @Class">
+		@ChildContent
+	</div>
+
+	<div class="d-flex justify-content-between gap-3 border-bottom px-4 py-2 small">
+		<div>HTML</div>
+		<div>Copy</div>
+	</div>
+
+	<div class="d-flex gap-3 px-4 py-2 demo-example-snippet">
+		<code class="mb-0">@ChildContent?.AsDeclared()</code>
+	</div>
+</div>

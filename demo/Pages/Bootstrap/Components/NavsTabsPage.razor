@@ -1,0 +1,88 @@
+@page "/bootstrap/components/navs-tabs"
+@layout Bootstrap
+
+<BuiContainer>
+	<BuiRow>
+		<BuiCol>
+			<BuiText Tag="h1">
+				Navs and tabs
+			</BuiText>
+
+			<BuiText Class="lead">
+				Documentation and examples for how to use Bootstrap’s included navigation components.
+			</BuiText>
+		</BuiCol>
+	</BuiRow>
+
+	<BuiRow>
+		<BuiCol>
+			<BuiText Tag="h2">
+				Base nav
+			</BuiText>
+
+			<BuiText>
+				Navigation available in Bootstrap share general markup and styles, from the base <code>.nav</code> class
+				to the active and disabled states. Swap modifier classes to switch between each style.
+			</BuiText>
+
+			<BuiText>
+				The base <code>.nav</code> component is built with flexbox and provide a strong foundation for building all types of navigation components.
+				It includes some style overrides (for working with lists), some link padding for larger hit areas, and basic disabled styling.
+			</BuiText>
+
+			<DemoExample>
+				<BuiNav>
+					<BuiNavItem Active="true">Active</BuiNavItem>
+					<BuiNavItem>Link</BuiNavItem>
+					<BuiNavItem>Link</BuiNavItem>
+					<BuiNavItem Disabled="true">Disabled</BuiNavItem>
+				</BuiNav>
+			</DemoExample>
+		</BuiCol>
+	</BuiRow>
+
+	<BuiRow>
+		<BuiCol>
+			<BuiText Tag="h2">
+				JavaScript behavior
+			</BuiText>
+
+			<BuiText>
+				Use the tab JavaScript plugin—include it individually or through the compiled bootstrap.js file
+				to extend our navigational tabs and pills to create tabbable panes of local content.
+			</BuiText>
+
+			<DemoExample>
+				<BuiTabs>
+					<BuiTab Header="Home">
+						This is some placeholder content the Home tab's associated content.
+						Clicking another tab will toggle the visibility of this one for the next.
+						The tab JavaScript swaps classes to control the content visibility and styling.
+						You can use it with tabs, pills, and any other .nav-powered navigation.
+					</BuiTab>
+
+					<BuiTab Header="Profile">
+						This is some placeholder content the Profile tab's associated content.
+						Clicking another tab will toggle the visibility of this one for the next.
+						The tab JavaScript swaps classes to control the content visibility and styling.
+						You can use it with tabs, pills, and any other .nav-powered navigation.
+					</BuiTab>
+
+					<BuiTab Header="Contact">
+						This is some placeholder content the Contact tab's associated content.
+						Clicking another tab will toggle the visibility of this one for the next.
+						The tab JavaScript swaps classes to control the content visibility and styling.
+						You can use it with tabs, pills, and any other .nav-powered navigation.
+					</BuiTab>
+
+					<BuiTab Header="Disabled">
+						This is some placeholder content the Disabled tab's associated content.
+						Clicking another tab will toggle the visibility of this one for the next.
+						The tab JavaScript swaps classes to control the content visibility and styling.
+						You can use it with tabs, pills, and any other .nav-powered navigation.
+					</BuiTab>
+				</BuiTabs>
+			</DemoExample>
+		</BuiCol>
+	</BuiRow>
+</BuiContainer>

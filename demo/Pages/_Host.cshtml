@@ -1,0 +1,37 @@
+@page "/"
+@using Microsoft.AspNetCore.Components.Web
+@namespace Blazorify.Demo.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<base href="/" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<title>Blazorify Demo</title>
+
+	<link rel="stylesheet" href="/_blazorify/bootstrap/custom.css" />
+
+	<component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
+</head>
+<body data-bs-theme="dark">
+	<component type="typeof(App)" render-mode="ServerPrerendered" />
+
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+            An error has occurred. This application may no longer respond until reloaded.
+        </environment>
+
+        <environment include="Development">
+            An unhandled exception has occurred. See browser dev tools for details.
+        </environment>
+
+		<a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+
+    <script src="_framework/blazor.server.js"></script>
+</body>
+</html>

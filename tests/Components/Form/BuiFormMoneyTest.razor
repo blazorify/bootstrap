@@ -1,0 +1,43 @@
+@namespace Blazorify.Bootstrap
+@inherits TestContext
+
+@code {
+	[Fact]
+	public void ShouldSetValue() {
+		var value = 0m;
+		var cut = Render(@<BuiFormMoney @bind-Value="value" />);
+
+		var input = cut.Find("input");
+
+		input.Change("1234.56");
+
+		Assert.Equal(1234.56m, value);
+	}
+
+	[Fact]
+	public void ShouldSetMaskedValue() {
+		var value = 0m;
+		var masked = "";
+
+		var cut = Render(@<BuiFormMoney @bind-Value="value" @bind-MaskedValue="masked" />);
+
+		var input = cut.Find("input");
+
+		input.Input("1234.56");
+
+		Assert.Equal("$1,234.56", masked);
+	}
+
+	[Fact]
+	public void ShouldDisplayMaskedValue() {
+		var value = 0m;
+
+		var cut = Render(@<BuiFormMoney @bind-Value="value" />);
+
+		var input = cut.Find("input");
+
+		input.Input("1234.56");
+
+		Assert.Equal("$1,234.56", input.GetAttribute("value"));
+	}
+}

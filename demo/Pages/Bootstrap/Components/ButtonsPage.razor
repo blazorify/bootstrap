@@ -1,0 +1,177 @@
+@page "/bootstrap/components/buttons"
+@layout Bootstrap
+
+<BuiRow>
+	<BuiCol>
+		<BuiText Tag="h1">
+			Buttons
+		</BuiText>
+
+		<BuiText Class="lead">
+			Use Bootstrap’s custom button styles for actions in forms, dialogs,
+			and more with support for multiple sizes, states, and more.
+		</BuiText>
+	</BuiCol>
+</BuiRow>
+
+<BuiRow>
+	<BuiCol>
+		<BuiText Tag="h2">
+			Base class
+		</BuiText>
+
+		<BuiText>
+			Bootstrap has a base <code>.btn</code> class that sets up basic styles such as padding and content alignment.
+			By default, <code>.btn</code> controls have a transparent border and background color,
+			and lack any explicit focus and hover styles.
+		</BuiText>
+
+		<DemoExample>
+			<BuiButton>
+				Base class
+			</BuiButton>
+		</DemoExample>
+
+		<BuiText>
+			The <code>.btn</code> class is intended to be used in conjunction with our button variants,
+			or to serve as a basis for your own custom styles.
+		</BuiText>
+	</BuiCol>
+</BuiRow>
+
+<BuiRow>
+	<BuiCol>
+		<BuiText Tag="h2">
+			Variants
+		</BuiText>
+
+		<BuiText>
+			Bootstrap includes several button variants, each serving its own semantic purpose,
+			with a few extras thrown in for more control.
+		</BuiText>
+
+		<DemoExample>
+			<BuiButton Variant="Variant.Primary">Primary</BuiButton>
+			<BuiButton Variant="Variant.Secondary">Secondary</BuiButton>
+			<BuiButton Variant="Variant.Success">Success</BuiButton>
+			<BuiButton Variant="Variant.Danger">Danger</BuiButton>
+			<BuiButton Variant="Variant.Warning">Warning</BuiButton>
+			<BuiButton Variant="Variant.Info">Info</BuiButton>
+			<BuiButton Variant="Variant.Light">Light</BuiButton>
+			<BuiButton Variant="Variant.Dark">Dark</BuiButton>
+
+			<BuiButton Variant="Variant.Link">Link</BuiButton>
+		</DemoExample>
+
+		<BuiText>
+			The <code>.btn</code> class is intended to be used in conjunction with our button variants,
+			or to serve as a basis for your own custom styles.
+		</BuiText>
+	</BuiCol>
+</BuiRow>
+
+<BuiRow>
+	<BuiCol>
+		<BuiText Tag="h2">
+			Outline buttons
+		</BuiText>
+
+		<BuiText>
+			In need of a button, but not the hefty background colors they bring?
+			Replace the default modifier classes with the <code>.btn-outline-*</code>
+			ones to remove all background images and colors on any button.
+		</BuiText>
+
+		<DemoExample>
+			<BuiButton Variant="Variant.Primary" Outline="true">Primary</BuiButton>
+			<BuiButton Variant="Variant.Secondary" Outline="true">Secondary</BuiButton>
+			<BuiButton Variant="Variant.Success" Outline="true">Success</BuiButton>
+			<BuiButton Variant="Variant.Danger" Outline="true">Danger</BuiButton>
+			<BuiButton Variant="Variant.Warning" Outline="true">Warning</BuiButton>
+			<BuiButton Variant="Variant.Info" Outline="true">Info</BuiButton>
+			<BuiButton Variant="Variant.Light" Outline="true">Light</BuiButton>
+			<BuiButton Variant="Variant.Dark" Outline="true">Dark</BuiButton>
+
+			<BuiButton Variant="Variant.Link">Link</BuiButton>
+		</DemoExample>
+
+		<BuiText>
+			The <code>.btn</code> class is intended to be used in conjunction with our button variants,
+			or to serve as a basis for your own custom styles.
+		</BuiText>
+	</BuiCol>
+</BuiRow>
+
+<BuiRow>
+	<BuiCol>
+		<BuiText Tag="h2">
+			Sizes
+		</BuiText>
+
+		<BuiText>
+			In need of a button, but not the hefty background colors they bring?
+			Replace the default modifier classes with the <code>.btn-outline-*</code>
+			ones to remove all background images and colors on any button.
+		</BuiText>
+
+		<DemoExample>
+			<BuiButton Variant="Variant.Primary" Size="Size.Large">Large button</BuiButton>
+			<BuiButton Variant="Variant.Secondary" Size="Size.Large">Large button</BuiButton>
+		</DemoExample>
+
+		<DemoExample>
+			<BuiButton Variant="Variant.Primary" Size="Size.Small">Small button</BuiButton>
+			<BuiButton Variant="Variant.Secondary" Size="Size.Small">Small button</BuiButton>
+		</DemoExample>
+	</BuiCol>
+</BuiRow>
+
+<BuiRow>
+	<BuiCol>
+		<BuiText Tag="h2">
+			Disabled state
+		</BuiText>
+
+		<BuiText>
+			Make buttons look inactive by adding the <code>disabled</code> boolean attribute to any <code>&lt;button&gt;</code> element.
+			Disabled buttons have <code>pointer-events: none</code> applied to, preventing hover and active states from triggering.
+		</BuiText>
+
+		<DemoExample>
+			<BuiButton Variant="Variant.Primary" Disabled="true">Primary button</BuiButton>
+			<BuiButton Variant="Variant.Secondary" Disabled="true">Button</BuiButton>
+			<BuiButton Variant="Variant.Primary" Outline="true" Disabled="true">Primary button</BuiButton>
+			<BuiButton Variant="Variant.Secondary" Outline="true" Disabled="true">Button</BuiButton>
+		</DemoExample>
+	</BuiCol>
+</BuiRow>
+
+<BuiRow>
+	<BuiCol>
+		<BuiText Tag="h2">
+			Toggle states
+		</BuiText>
+
+		<BuiText>
+			Add <code>data-bs-toggle="button"</code> to toggle a button’s <code>active</code> state.
+			If you’re pre-toggling a button, you must manually add the <code>.active</code> class <strong>and</strong>
+			<code>aria-pressed="true"</code> to ensure that it is conveyed appropriately to assistive technologies.
+		</BuiText>
+
+		<DemoExample>
+			<div class="d-flex flex-column gap-2">
+				<div class="d-flex gap-2">
+					<BuiButton Variant="Variant.Link" Toggle="true">Toggle link</BuiButton>
+					<BuiButton Variant="Variant.Link" Toggle="true" Active="true">Active toggle link</BuiButton>
+					<BuiButton Variant="Variant.Link" Toggle="true" Disabled="true">Disabled toggle link</BuiButton>
+				</div>
+
+				<div class="d-flex gap-2">
+					<BuiButton Variant="Variant.Primary" Toggle="true">Toggle link</BuiButton>
+					<BuiButton Variant="Variant.Primary" Toggle="true" Active="true">Active toggle link</BuiButton>
+					<BuiButton Variant="Variant.Primary" Toggle="true" Disabled="true">Disabled toggle link</BuiButton>
+				</div>
+			</div>
+		</DemoExample>
+	</BuiCol>
+</BuiRow>

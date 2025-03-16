@@ -1,0 +1,689 @@
+@page "/bootstrap/components/cards"
+@layout Bootstrap
+
+<BuiContainer>
+	<BuiRow>
+		<BuiCol>
+			<BuiText Tag="h1">
+				Cards
+			</BuiText>
+
+			<BuiText Class="lead">
+				Bootstrap’s cards provide a flexible and extensible content container with multiple variants and options.
+			</BuiText>
+		</BuiCol>
+	</BuiRow>
+
+	<BuiRow>
+		<BuiCol>
+			<BuiText Tag="h2">
+				Example
+			</BuiText>
+
+			<BuiText>
+				Cards are built with as little markup and styles as possible, but still manage to deliver a ton of control and customization.
+				Built with flexbox, they offer easy alignment and mix well with other Bootstrap components.
+				They have no <code>margin</code> by default, so use <a href="/docs/5.3/utilities/spacing/">spacing utilities</a> as needed.
+			</BuiText>
+
+			<BuiText>
+				Below is an example of a basic card with mixed content and a fixed width. Cards have no fixed width to start,
+				so they’ll naturally fill the full width of its parent element. This is easily customized with our various
+				<a href="javascript:void(0);">sizing options</a>.
+			</BuiText>
+
+			<DemoExample>
+				<BuiCard Style="width: 18rem">
+					<BuiCardImage Source="https://placehold.it/400x300" />
+
+					<BuiCardBody>
+						<BuiCardTitle Class="h5">
+							Card title
+						</BuiCardTitle>
+
+						<BuiCardText>
+							Some quick example text to build on the card title and make up the bulk of the card's content.
+						</BuiCardText>
+
+						<BuiButton Variant="Variant.Primary">
+							Go somewhere
+						</BuiButton>
+					</BuiCardBody>
+				</BuiCard>
+			</DemoExample>
+		</BuiCol>
+	</BuiRow>
+
+	<BuiRow>
+		<BuiCol>
+			<BuiText Tag="h2">
+				Content types
+			</BuiText>
+
+			<BuiText>
+				Cards support a wide variety of content, including images, text, list groups, links, and more.
+				Below are examples of what’s supported.
+			</BuiText>
+
+			<BuiText Tag="h3">
+				Body
+			</BuiText>
+
+			<BuiText>
+				The building block of a card is the <code>.card-body</code>.
+				Use it whenever you need a padded section within a card.
+			</BuiText>
+
+			<DemoExample>
+				<BuiCard>
+					<BuiCardBody>
+						<BuiCardText>
+							This is some text within a card body.
+						</BuiCardText>
+					</BuiCardBody>
+				</BuiCard>
+			</DemoExample>
+
+			<BuiText Tag="h3">
+				Titles, text, and links
+			</BuiText>
+
+			<BuiText>
+				Card titles are used by adding <code>.card-title</code> to a <code>&lt;h*&gt;</code> tag.
+				In the same way, links are added and placed next to each other
+				by adding <code>.card-link</code> to an <code>&lt;a&gt;</code> tag.
+			</BuiText>
+
+			<BuiText>
+				Subtitles are used by adding a <code>.card-subtitle</code> to a <code>&lt;h*&gt;</code> tag.
+				If the <code>.card-title</code> and the <code>.card-subtitle</code> items are placed
+				in a <code>.card-body</code> item, the card title and subtitle are aligned nicely.
+			</BuiText>
+
+			<DemoExample>
+				<BuiCard>
+					<BuiCardBody>
+						<BuiCardTitle Class="h5">
+							Card title
+						</BuiCardTitle>
+
+						<BuiCardSubTitle Class="text-body-secondary h6">
+							Card subtitle
+						</BuiCardSubTitle>
+
+						<BuiCardText>
+							Some quick example text to build on the card title and make up the bulk of the card's content.
+						</BuiCardText>
+
+						<!-- TODO: Fix spacing between card links -->
+						<BuiCardLink Href="javascript:void(0);">
+							Card link
+						</BuiCardLink>
+
+						<BuiCardLink Href="javascript:void(0);">
+							Another link
+						</BuiCardLink>
+					</BuiCardBody>
+				</BuiCard>
+			</DemoExample>
+
+			<BuiText Tag="h3">
+				Images
+			</BuiText>
+
+			<BuiText>
+				<code>.card-img-top</code> places an image to the top of the card. With <code>.card-text</code>,
+				text can be added to the card. Text within <code>.card-text</code> can also be styled with the standard HTML tags.
+			</BuiText>
+
+			<DemoExample>
+				<BuiCard Style="width: 18rem;">
+					<BuiCardImage Source="https://placehold.it/400x300" />
+
+					<BuiCardBody>
+						<BuiCardText>
+							Some quick example text to build on the card title and make up the bulk of the card's content.
+						</BuiCardText>
+					</BuiCardBody>
+				</BuiCard>
+			</DemoExample>
+
+			<BuiText Tag="h3">
+				List groups
+			</BuiText>
+
+			<BuiText>
+				Create lists of content in a card with a flush list group.
+			</BuiText>
+
+			<DemoExample>
+				<BuiCard Style="width: 18rem;">
+					<!-- TODO: Replace with <ngx-list-group> when component ready -->
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">An item</li>
+						<li class="list-group-item">A second item</li>
+						<li class="list-group-item">A third item</li>
+					</ul>
+				</BuiCard>
+			</DemoExample>
+
+			<DemoExample>
+				<BuiCard Style="width: 18rem;">
+					<BuiCardHeader>
+						Featured
+					</BuiCardHeader>
+
+					<!-- TODO: Replace with <ngx-list-group> when component ready -->
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">An item</li>
+						<li class="list-group-item">A second item</li>
+						<li class="list-group-item">A third item</li>
+					</ul>
+				</BuiCard>
+			</DemoExample>
+
+			<DemoExample>
+				<BuiCard Style="width: 18rem;">
+					<!-- TODO: Replace with <ngx-list-group> when component ready -->
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">An item</li>
+						<li class="list-group-item">A second item</li>
+						<li class="list-group-item">A third item</li>
+					</ul>
+
+					<BuiCardFooter>
+						Card footer
+					</BuiCardFooter>
+				</BuiCard>
+			</DemoExample>
+
+			<BuiText Tag="h3">
+				Kitchen sink
+			</BuiText>
+
+			<BuiText>
+				Mix and match multiple content types to create the card you need, or throw everything in there.
+				Shown below are image styles, blocks, text styles, and a list group—all wrapped in a fixed-width card.
+			</BuiText>
+
+			<DemoExample>
+				<BuiCard Style="width: 18rem">
+					<BuiCardImage Source="https://placehold.it/400x300" />
+
+					<BuiCardBody>
+						<BuiCardTitle Class="h5">
+							Card title
+						</BuiCardTitle>
+
+						<BuiCardText>
+							Some quick example text to build on the card title and make up the bulk of the card's content.
+						</BuiCardText>
+					</BuiCardBody>
+
+					<!-- TODO: Replace with <ngx-list-group> when component ready -->
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">An item</li>
+						<li class="list-group-item">A second item</li>
+						<li class="list-group-item">A third item</li>
+					</ul>
+
+					<BuiCardBody>
+						<!-- TODO: Fix spacing between card links -->
+						<BuiCardLink Href="javascript:void(0);">
+							Card link
+						</BuiCardLink>
+
+						<BuiCardLink Href="javascript:void(0);">
+							Another link
+						</BuiCardLink>
+					</BuiCardBody>
+				</BuiCard>
+			</DemoExample>
+
+			<BuiText Tag="h3">
+				Header and footer
+			</BuiText>
+
+			<BuiText>
+				Add an optional header and/or footer within a card.
+			</BuiText>
+
+			<DemoExample>
+				<BuiCard>
+					<BuiCardHeader>
+						Featured
+					</BuiCardHeader>
+
+					<BuiCardBody>
+						<BuiCardTitle Class="h5">
+							Special title treatment
+						</BuiCardTitle>
+
+						<BuiCardText>
+							With supporting text below as a natural lead-in to additional content.
+						</BuiCardText>
+
+						<BuiButton Variant="Variant.Primary">
+							Go somewhere
+						</BuiButton>
+					</BuiCardBody>
+				</BuiCard>
+			</DemoExample>
+
+			<BuiText>
+				Card headers can be styled by adding <code>.card-header</code> to <code>&lt;h*&gt;</code> elements.
+			</BuiText>
+
+			<DemoExample>
+				<BuiCard>
+					<!-- TODO: Add support to substitute tag name -->
+					<BuiCardHeader Class="h5" Tag="h5">
+						Featured
+					</BuiCardHeader>
+
+					<BuiCardBody>
+						<BuiCardTitle Class="h5">
+							Special title treatment
+						</BuiCardTitle>
+
+						<BuiCardText>
+							With supporting text below as a natural lead-in to additional content.
+						</BuiCardText>
+
+						<BuiButton Variant="Variant.Primary">
+							Go somewhere
+						</BuiButton>
+					</BuiCardBody>
+				</BuiCard>
+			</DemoExample>
+
+			<DemoExample>
+				<BuiCard>
+					<BuiCardHeader>
+						Quote
+					</BuiCardHeader>
+
+					<BuiCardBody>
+						<!-- TODO: Replace with <ngx-quote> component when it's ready -->
+						<blockquote class="blockquote mb-0">
+							<p>A well-known quote, contained in a blockquote element.</p>
+							<footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+						</blockquote>
+					</BuiCardBody>
+				</BuiCard>
+			</DemoExample>
+
+			<DemoExample>
+				<BuiCard Class="text-center">
+					<BuiCardHeader>
+						Featured
+					</BuiCardHeader>
+
+					<BuiCardBody>
+						<BuiCardTitle Class="h5">
+							Special title treatment
+						</BuiCardTitle>
+
+						<BuiCardText>
+							With supporting text below as a natural lead-in to additional content.
+						</BuiCardText>
+
+						<BuiButton Variant="Variant.Primary">
+							Go somewhere
+						</BuiButton>
+					</BuiCardBody>
+
+					<BuiCardFooter Class="text-body-secondary">
+						2 days ago
+					</BuiCardFooter>
+				</BuiCard>
+			</DemoExample>
+		</BuiCol>
+	</BuiRow>
+
+	<BuiRow>
+		<BuiCol>
+			<BuiText Tag="h2">
+				Sizing
+			</BuiText>
+
+			<BuiText>
+				Cards assume no specific <code>width</code> to start, so they’ll be 100% wide unless otherwise stated.
+				You can change this as needed with custom CSS, grid classes, grid Sass mixins, or utilities.
+			</BuiText>
+
+			<BuiText Tag="h3">
+				Using grid markup
+			</BuiText>
+
+			<BuiText>
+				Cards assume no specific <code>width</code> to start, so they’ll be 100% wide unless otherwise stated.
+				You can change this as needed with custom CSS, grid classes, grid Sass mixins, or utilities.
+			</BuiText>
+
+			<DemoExample>
+				<BuiRow>
+					<!-- TODO: Class propagation -->
+					<BuiCard Class="col-sm-6 mb-3 mb-sm-0">
+						<BuiCardBody>
+							<BuiCardTitle Class="h5">
+								Special title treatment
+							</BuiCardTitle>
+
+							<BuiCardText>
+								With supporting text below as a natural lead-in to additional content.
+							</BuiCardText>
+
+							<BuiButton Variant="Variant.Primary">
+								Go somewhere
+							</BuiButton>
+						</BuiCardBody>
+					</BuiCard>
+
+					<BuiCard Class="col-sm-6">
+						<BuiCardBody>
+							<BuiCardTitle Class="h5">
+								Special title treatment
+							</BuiCardTitle>
+
+							<BuiCardText>
+								With supporting text below as a natural lead-in to additional content.
+							</BuiCardText>
+
+							<BuiButton Variant="Variant.Primary">
+								Go somewhere
+							</BuiButton>
+						</BuiCardBody>
+					</BuiCard>
+				</BuiRow>
+			</DemoExample>
+
+			<BuiText Tag="h3">
+				Using utilities
+			</BuiText>
+
+			<BuiText>
+				Use our handful of <a href="/docs/5.3/utilities/sizing/">available sizing utilities</a> to quickly set a card’s width.
+			</BuiText>
+
+			<DemoExample>
+				<BuiCard Class="w-75 mb-3">
+					<BuiCardBody>
+						<BuiCardTitle Class="h5">
+							Card title
+						</BuiCardTitle>
+
+						<BuiCardText>
+							With supporting text below as a natural lead-in to additional content.
+						</BuiCardText>
+
+						<BuiButton Variant="Variant.Primary">
+							Go somewhere
+						</BuiButton>
+					</BuiCardBody>
+				</BuiCard>
+
+				<BuiCard Class="w-50">
+					<BuiCardBody>
+						<BuiCardTitle Class="h5">
+							Card title
+						</BuiCardTitle>
+
+						<BuiCardText>
+							With supporting text below as a natural lead-in to additional content.
+						</BuiCardText>
+
+						<BuiButton Variant="Variant.Primary">
+							Go somewhere
+						</BuiButton>
+					</BuiCardBody>
+				</BuiCard>
+			</DemoExample>
+
+			<BuiText Tag="h3">
+				Using custom CSS
+			</BuiText>
+
+			<BuiText>
+				Use custom CSS in your stylesheets or as inline styles to set a width.
+			</BuiText>
+
+			<DemoExample>
+				<BuiCard Style="width: 18rem;">
+					<BuiCardBody>
+						<BuiCardTitle Class="h5">
+							Special title treatment
+						</BuiCardTitle>
+
+						<BuiCardText>
+							With supporting text below as a natural lead-in to additional content.
+						</BuiCardText>
+
+						<BuiButton Variant="Variant.Primary">
+							Go somewhere
+						</BuiButton>
+					</BuiCardBody>
+				</BuiCard>
+			</DemoExample>
+
+			<BuiText Tag="h3">Text alignment</BuiText>
+
+			<BuiText>
+				You can quickly change the text alignment of any card—in its entirety or specific parts—with
+				our <a href="/docs/5.3/utilities/text/#text-alignment">text align classes</a>.
+			</BuiText>
+
+			<DemoExample>
+				<BuiCard Class="mb-3" Style="width: 18rem;">
+					<BuiCardBody>
+						<BuiCardTitle Class="h5">
+							Special title treatment
+						</BuiCardTitle>
+
+						<BuiCardText>
+							With supporting text below as a natural lead-in to additional content.
+						</BuiCardText>
+
+						<BuiButton Variant="Variant.Primary">
+							Go somewhere
+						</BuiButton>
+					</BuiCardBody>
+				</BuiCard>
+
+				<BuiCard Class="text-center mb-3" Style="width: 18rem;">
+					<BuiCardBody>
+						<BuiCardTitle Class="h5">
+							Special title treatment
+						</BuiCardTitle>
+
+						<BuiCardText>
+							With supporting text below as a natural lead-in to additional content.
+						</BuiCardText>
+
+						<BuiButton Variant="Variant.Primary">
+							Go somewhere
+						</BuiButton>
+					</BuiCardBody>
+				</BuiCard>
+
+				<BuiCard Class="text-end" Style="width: 18rem;">
+					<BuiCardBody>
+						<BuiCardTitle Class="h5">
+							Special title treatment
+						</BuiCardTitle>
+
+						<BuiCardText>
+							With supporting text below as a natural lead-in to additional content.
+						</BuiCardText>
+
+						<BuiButton Variant="Variant.Primary">
+							Go somewhere
+						</BuiButton>
+					</BuiCardBody>
+				</BuiCard>
+			</DemoExample>
+
+			<BuiText Tag="h2">
+				Navigation
+			</BuiText>
+
+			<BuiText>
+				Add some navigation to a card’s header (or block) with Bootstrap’s <a href="/docs/5.3/components/navs-tabs/">nav components</a>.
+			</BuiText>
+
+			<DemoExample>
+				<BuiCard>
+					<BuiCardHeader>
+						<!-- TODO: Implement this -->
+						<ul class="nav nav-tabs card-header-tabs">
+							<li class="nav-item">
+								<a class="nav-link active" aria-current="true" href="#">Active</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Link</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link disabled" aria-disabled="true">Disabled</a>
+							</li>
+						</ul>
+					</BuiCardHeader>
+
+					<BuiCardBody Class="text-center">
+						<BuiCardTitle Class="h5">
+							Special title treatment
+						</BuiCardTitle>
+
+						<BuiCardText>
+							With supporting text below as a natural lead-in to additional content.
+						</BuiCardText>
+
+						<BuiButton Variant="Variant.Primary">
+							Go somewhere
+						</BuiButton>
+					</BuiCardBody>
+				</BuiCard>
+			</DemoExample>
+
+			<DemoExample>
+				<BuiCard>
+					<BuiCardHeader>
+						<!-- TODO: Implement this -->
+						<ul class="nav nav-tabs card-header-tabs">
+							<li class="nav-item">
+								<a class="nav-link active" aria-current="true" href="#">Active</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Link</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link disabled" aria-disabled="true">Disabled</a>
+							</li>
+						</ul>
+					</BuiCardHeader>
+
+					<BuiCardBody Class="text-center">
+						<BuiCardTitle Class="h5">
+							Special title treatment
+						</BuiCardTitle>
+
+						<BuiCardText>
+							With supporting text below as a natural lead-in to additional content.
+						</BuiCardText>
+
+						<BuiButton Variant="Variant.Primary">
+							Go somewhere
+						</BuiButton>
+					</BuiCardBody>
+				</BuiCard>
+			</DemoExample>
+
+			<BuiText Tag="h2">
+				Images
+			</BuiText>
+
+			<BuiText>
+				Cards include a few options for working with images. Choose from appending “image caps” at either end of a card,
+				overlaying images with card content, or simply embedding the image in a card.
+			</BuiText>
+
+			<BuiText Tag="h3">
+				Image caps
+			</BuiText>
+
+			<BuiText>
+				Similar to headers and footers, cards can include top and bottom “image caps”—images at the top or bottom of a card.
+			</BuiText>
+
+			<DemoExample>
+				<BuiCard>
+					<!-- TODO: Implement variant -->
+					<BuiCardImage Source="https://placehold.it/1920x400" Variant="top" />
+
+					<BuiCardBody>
+						<BuiCardTitle Class="h5">
+							Card title
+						</BuiCardTitle>
+
+						<BuiCardText>
+							This is a wider card with supporting text below as a natural lead-in to additional content.
+							This content is a little bit longer.
+						</BuiCardText>
+
+						<BuiCardText Class="text-body-secondary small">
+							Last updated 3 mins ago
+						</BuiCardText>
+					</BuiCardBody>
+				</BuiCard>
+
+				<BuiCard>
+					<BuiCardBody>
+						<BuiCardTitle Class="h5">
+							Card title
+						</BuiCardTitle>
+
+						<BuiCardText>
+							Some quick example text to build on the card title and make up the bulk of the card's content.
+						</BuiCardText>
+
+						<BuiCardText Class="text-body-secondary small">
+							Last updated 3 mins ago
+						</BuiCardText>
+					</BuiCardBody>
+
+					<BuiCardImage Variant="bottom" Source="https://placehold.it/1920x400" />
+				</BuiCard>
+			</DemoExample>
+
+			<BuiText Tag="h3">
+				Image overlays
+			</BuiText>
+
+			<BuiText>
+				Turn an image into a card background and overlay your card’s text.
+				Depending on the image, you may or may not need additional styles or utilities.
+			</BuiText>
+
+			<DemoExample>
+				<BuiCard Class="text-bg-dark">
+					<BuiCardImage Variant="top" Source="https://placehold.it/1920x500" />
+
+					<!-- TODO: Fix <BuiCardimg-overlay> look -->
+					<BuiCardImageOverlay>
+						<BuiCardTitle Class="h5">
+							Card title
+						</BuiCardTitle>
+
+						<BuiCardText>
+							This is a wider card with supporting text below as a natural lead-in to additional content.
+							This content is a little bit longer.
+						</BuiCardText>
+
+						<BuiCardText Class="small">
+							Last updated 3 mins ago
+						</BuiCardText>
+					</BuiCardImageOverlay>
+				</BuiCard>
+			</DemoExample>
+		</BuiCol>
+	</BuiRow>
+</BuiContainer>
