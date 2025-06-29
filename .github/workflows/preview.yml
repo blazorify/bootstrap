@@ -3,7 +3,7 @@ name: preview
 on:
   push:
     branches:
-      - dev
+      - main
 
 jobs:
   build-and-publish:
