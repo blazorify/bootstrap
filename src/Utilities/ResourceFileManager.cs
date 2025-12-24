@@ -1,131 +1,63 @@
-using LibSassHost;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 
 namespace Blazorify.Bootstrap {
-	public class ResourceFileManager : IFileManager {
-		private readonly BootstrapOptions options;
+	public class ResourceFileManager {
 		private readonly ILogger<ResourceFileManager> logger;
+		private readonly ConcurrentDictionary<String, String> extractedThemes = new(StringComparer.OrdinalIgnoreCase);
 
-		private String currentDirectory = "/";
-
-		/// <inheritdoc/>
-		public Boolean SupportsConversionToAbsolutePath => false;
-
-		public ResourceFileManager(
-			IOptions<BootstrapOptions> optionsAccessor,
-			ILogger<ResourceFileManager> logger
-		) {
-			this.options = optionsAccessor.Value;
+		public ResourceFileManager(ILogger<ResourceFileManager> logger) {
 			this.logger = logger;
 		}
 
-		/// <inheritdoc/>
-		public String GetCurrentDirectory() {
-			this.logger.LogDebug("GetCurrentDirectory: {currentDirectory}", this.currentDirectory);
+		/// <summary>
+		/// Ensures the embedded SCSS resources for a theme exist on disk and returns the root directory.
+		/// </summary>
+		public String EnsureThemeOnDisk(BootstrapThemeOptions theme) {
+			return this.extractedThemes.GetOrAdd(theme.Namespace, _ => {
+				var tempRoot = Path.Combine(Path.GetTempPath(), "blazorify-bootstrap", theme.Namespace);
+				this.logger.LogDebug("Extracting SCSS resources for {namespace} to {path}", theme.Namespace, tempRoot);
+				Directory.CreateDirectory(tempRoot);
 
-			return this.currentDirectory;
-		}
+				var prefix = $"{theme.Namespace}.";
+				var resourceNames = theme.Assembly.GetManifestResourceNames()
+					.Where(name => name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+					.Where(name => name.EndsWith(".scss", StringComparison.OrdinalIgnoreCase));
 
-		/// <inheritdoc/>
-		public Boolean FileExists(String path) {
-			var resourceNamespaces = path.Split('/').FirstOrDefault();
+				foreach (var resourceName in resourceNames) {
+					var relativeName = resourceName.Substring(prefix.Length);
+					var relativePath = this.GetRelativePathFromResource(relativeName);
+					var outputPath = Path.Combine(tempRoot, relativePath);
 
-			this.logger.LogDebug("ResourceNamespaces: {resourceNamespaces}", resourceNamespaces);
+					Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
 
-			if (String.IsNullOrWhiteSpace(resourceNamespaces)) {
-				return false;
-			}
-
-			var resourcePath = String.Join('/', path.Split('/').Skip(1));
-
-			this.logger.LogDebug("ResourcePath: {resourcePath}", resourcePath);
-
-			foreach (var resourceNamespace in resourceNamespaces.Split(';')) {
-				if (this.options.Themes.TryGetValue(theme => theme.Namespace.Equals(resourceNamespace, StringComparison.OrdinalIgnoreCase), out var theme)) {
-					var resourceName = this.GetResourcePath($"{resourceNamespace}/{resourcePath}");
-					var resourceExists = theme.Assembly.ResourceExists(resourceName);
-
-					if (resourceExists) {
-						this.logger.LogDebug("FileExists: {resourceName}", resourceName);
-
-						return true;
-					} else {
-						this.logger.LogDebug("FileNotFound: {resourceName}", resourceName);
-					}
+					var bytes = theme.Assembly.GetResource(resourceName);
+					File.WriteAllBytes(outputPath, bytes);
 				}
+
+				return tempRoot;
+			});
+		}
+
+		private String GetRelativePathFromResource(String resourceName) {
+			var resourceParts = resourceName.Split('.', StringSplitOptions.RemoveEmptyEntries);
+
+			if (resourceParts.Length < 2) {
+				return resourceName;
 			}
 
-			return false;
-		}
+			var directories = resourceParts.Take(resourceParts.Length - 2);
+			var fileName = $"{resourceParts[^2]}.{resourceParts[^1]}";
 
-		/// <inheritdoc/>
-		public Boolean IsAbsolutePath(String path) {
-			var resourceNamespaces = path.Split('/').FirstOrDefault();
-
-			if (String.IsNullOrWhiteSpace(resourceNamespaces)) {
-				return false;
+			if (directories.Any()) {
+				return Path.Combine(Path.Combine(directories.ToArray()), fileName);
 			}
 
-			foreach (var resourceNamespace in resourceNamespaces.Split(';')) {
-				if (this.options.Themes.Values.Any(theme => theme.Namespace.Equals(resourceNamespace, StringComparison.OrdinalIgnoreCase))) {
-					return true;
-				}
-			}
-
-			return false;
-		}
-
-		/// <inheritdoc/>
-		public String ToAbsolutePath(String path) {
-			this.logger.LogDebug("ToAbsolutePath: {path}", path);
-			return path;
-		}
-
-		/// <inheritdoc/>
-		public String GetDirectoryName(String path) {
-			this.logger.LogDebug("GetDirectoryName: {path}", path);
-			return String.Empty;
-		}
-
-		/// <inheritdoc/>
-		public String ReadFile(String path) {
-			this.logger.LogDebug("ReadFile: {path}", path);
-
-			var resourceNamespaces = path.Split('/').FirstOrDefault();
-
-			ArgumentNullException.ThrowIfNullOrWhiteSpace(resourceNamespaces);
-
-			var resourcePath = String.Join('/', path.Split('/').Skip(1));
-
-			this.logger.LogDebug("ResourcePath: {resourcePath}", resourcePath);
-
-			foreach (var resourceNamespace in resourceNamespaces.Split(';')) {
-				var resourceName = this.GetResourcePath($"{resourceNamespace}/{resourcePath}");
-
-				if (this.options.Themes.TryGetValue(theme => theme.Namespace.Equals(resourceNamespace, StringComparison.OrdinalIgnoreCase), out var theme)) {
-					if (theme.Assembly.ResourceExists(resourceName)) {
-						this.currentDirectory = Path.GetDirectoryName(path)?.Replace('\\', '/') ?? "/";
-
-						return theme.Assembly.GetResourceAsText(resourceName);
-					}
-				}
-			}
-
-			var exception = new FileNotFoundException($"Resource file '{path}' not found");
-
-			this.logger.LogError(exception, exception.Message);
-
-			throw exception;
-		}
-
-		private String GetResourcePath(String path) {
-			return path.Replace("/", ".").Replace("\\", ".");
+			return fileName;
 		}
 	}
 }

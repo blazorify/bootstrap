@@ -27,13 +27,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LibSassHost" Version="1.5.0" />
-    <PackageReference Include="LibSassHost.Native.linux-x64" Version="1.5.0" />
-    <PackageReference Include="LibSassHost.Native.osx-x64" Version="1.5.0" />
-    <PackageReference Include="LibSassHost.Native.win-arm" Version="1.5.0" />
-    <PackageReference Include="LibSassHost.Native.win-arm64" Version="1.5.0" />
-    <PackageReference Include="LibSassHost.Native.win-x64" Version="1.5.0" />
-    <PackageReference Include="LibSassHost.Native.win-x86" Version="1.5.0" />
+    <PackageReference Include="Blazorify.Sass" Version="1.0.0-preview.251223204523" />
     <PackageReference Include="Microsoft.AspNetCore.Components" Version="10.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />

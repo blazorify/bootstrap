@@ -1,13 +1,15 @@
 using System;
 using System.Runtime.CompilerServices;
 using Blazorify.Bootstrap;
+using Blazorify.Sass;
 
 namespace Microsoft.Extensions.DependencyInjection {
 	public static class AddBlazorifyExtension {
 		public static IServiceCollection AddBlazorify(this IServiceCollection services) {
 			services.AddScoped<BuiModalService>();
 			services.AddScoped<BuiToastService>();
-			services.AddScoped<ResourceFileManager>();
+			services.AddSingleton<ResourceFileManager>();
+			services.AddSingleton<SassCompiler>();
 
 			return services;
 		}

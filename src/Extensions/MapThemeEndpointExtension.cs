@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Blazorify.Bootstrap;
-using LibSassHost;
+using Blazorify.Sass;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -44,6 +44,7 @@ namespace Microsoft.AspNetCore.Builder {
 					ArgumentException.ThrowIfNullOrWhiteSpace(themeName);
 
 					var themeFileManager = context.RequestServices.GetRequiredService<ResourceFileManager>();
+					var sassCompiler = context.RequestServices.GetRequiredService<SassCompiler>();
 					var optionsAccessor = context.RequestServices.GetRequiredService<IOptions<BootstrapOptions>>();
 					var loggerFactory = context.RequestServices.GetRequiredService<ILoggerFactory>();
 
@@ -53,27 +54,45 @@ namespace Microsoft.AspNetCore.Builder {
 						var options = optionsAccessor.Value;
 
 						if (options.Themes.TryGetValue(themeName, out var theme)) {
-							SassCompiler.FileManager = themeFileManager;
-							var compilationOptions = new CompilationOptions() {
-								IncludePaths = ["Blazorify.Bootstrap.Resources", theme.Namespace],
+							var includePaths = new List<String>();
+							var themeRoot = themeFileManager.EnsureThemeOnDisk(theme);
+
+							includePaths.Add(themeRoot);
+
+							if (options.Themes.TryGetValue("bootstrap", out var bootstrapTheme)) {
+								var bootstrapRoot = themeFileManager.EnsureThemeOnDisk(bootstrapTheme);
+
+								if (!includePaths.Exists(path => path.Equals(bootstrapRoot, StringComparison.OrdinalIgnoreCase))) {
+									includePaths.Add(bootstrapRoot);
+								}
+							}
+
+							var entryPath = Path.Combine(themeRoot, "index.scss");
+
+							if (!File.Exists(entryPath)) {
+								throw new FileNotFoundException($"Entry file '{entryPath}' was not found for theme '{themeName}'.");
+							}
+
+							var scssContent = File.ReadAllText(entryPath);
+							var compilationOptions = new SassCompilerOptions {
+								IncludePaths = includePaths,
 							};
 
-							var scssContent = themeFileManager.ReadFile($"{theme.Namespace}/index.scss");
-							var result = SassCompiler.Compile(scssContent, compilationOptions);
+							var result = sassCompiler.Compile(scssContent, compilationOptions);
 
 							context.Response.StatusCode = StatusCodes.Status200OK;
 							context.Response.Headers["Content-Type"] = "text/css";
 
-							cache.TryAdd(themeName, result.CompiledContent);
+							cache.TryAdd(themeName, result);
 
-							await context.Response.WriteAsync(result.CompiledContent);
+							await context.Response.WriteAsync(result);
 						} else {
 							logger.LogInformation("Theme '{themeName}' not found", themeName);
 
 							context.Response.StatusCode = StatusCodes.Status404NotFound;
 							await context.Response.WriteAsync("Not found");
 						}
-					} catch (SassCompilationException ex) {
+					} catch (Exception ex) {
 						logger.LogError(ex, ex.Message);
 
 						context.Response.StatusCode = StatusCodes.Status500InternalServerError;
