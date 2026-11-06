@@ -41,7 +41,7 @@
 
 		cut.FindAll(".dropdown-item")[0].Click();
 
-		Assert.Equal("light", JSInterop.VerifyInvoke("BlazorifyColorMode.setMode")[0].Arguments[0]);
+		Assert.Equal("light", JSInterop.VerifyInvoke("BlazorifyColorMode.setMode").Arguments[0]);
 		Assert.Equal(ColorMode.Light, changed);
 		cut.WaitForAssertion(() => Assert.Equal("Light", cut.Find(".dropdown-item.active").TextContent.Trim()));
 	}
@@ -65,7 +65,7 @@
 
 		cut.Find("button.bui-theme-toggle").Click();
 
-		Assert.Equal("dark", JSInterop.VerifyInvoke("BlazorifyColorMode.setMode")[0].Arguments[0]);
+		Assert.Equal("dark", JSInterop.VerifyInvoke("BlazorifyColorMode.setMode").Arguments[0]);
 	}
 
 	[Fact]
@@ -76,7 +76,7 @@
 
 		cut.Find("button.bui-theme-toggle").Click();
 
-		Assert.Equal("light", JSInterop.VerifyInvoke("BlazorifyColorMode.setMode")[0].Arguments[0]);
+		Assert.Equal("light", JSInterop.VerifyInvoke("BlazorifyColorMode.setMode").Arguments[0]);
 	}
 
 	[Fact]

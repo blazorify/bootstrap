@@ -14,7 +14,7 @@ namespace Blazorify.Bootstrap {
 	/// For a page without a flash of the wrong theme, also load <c>/_blazorify/bootstrap/color-mode.js</c> in <c>&lt;head&gt;</c>.
 	/// </remarks>
 	public class BuiThemeService : IAsyncDisposable {
-		internal const String ScriptResourceName = "Blazorify.Bootstrap.Resources.Scripts.colorMode.js";
+		public const String ScriptResourceName = "Blazorify.Bootstrap.Resources.Scripts.colorMode.js";
 
 		private readonly IJSRuntime jsRuntime;
 		private DotNetObjectReference<BuiThemeService>? dotNetObjectReference = null;

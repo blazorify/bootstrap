@@ -89,7 +89,7 @@ namespace Blazorify.Bootstrap {
 			var mode = await this.Service.ToggleAsync();
 
 			Assert.Equal(ColorMode.Light, mode);
-			Assert.Equal("light", this.JSInterop.VerifyInvoke("BlazorifyColorMode.setMode")[0].Arguments[0]);
+			Assert.Equal("light", this.JSInterop.VerifyInvoke("BlazorifyColorMode.setMode").Arguments[0]);
 		}
 
 		[Fact]
