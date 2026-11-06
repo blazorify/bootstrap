@@ -54,6 +54,16 @@ namespace Blazorify.Bootstrap {
 		Link = 256,
 	}
 
+	/// <summary>
+	/// Bootstrap 5.3 color modes, as set through <c>data-bs-theme</c>.
+	/// </summary>
+	public enum ColorMode {
+		/// <summary>Follows the operating system's light or dark preference.</summary>
+		Auto = 0,
+		Light = 1,
+		Dark = 2,
+	}
+
 	public enum Size {
 		Normal = 1,
 		Small = 2,

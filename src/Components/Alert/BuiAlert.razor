@@ -1,7 +1,7 @@
 @namespace Blazorify.Bootstrap
 @inherits BuiContentComponentBase
 
-<div class="alert @ClassList" style="@Style" role="alert">
+<div class="alert @ClassList" data-bs-theme="@ThemeAttribute" style="@Style" role="alert">
 	@ChildContent
 
 	@if (Dismissible) {

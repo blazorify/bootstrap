@@ -1,6 +1,6 @@
 @namespace Blazorify.Bootstrap
 @inherits BuiButton
 
-<a class="@ClassList" style="@Style" href="@Href" @onclick="OnClick" target="@Target" rel="@Rel" role="button">
+<a class="@ClassList" data-bs-theme="@ThemeAttribute" style="@Style" href="@Href" @onclick="OnClick" target="@Target" rel="@Rel" role="button">
 	@ChildContent
 </a>

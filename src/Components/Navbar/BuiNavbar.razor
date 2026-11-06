@@ -1,7 +1,7 @@
 @namespace Blazorify.Bootstrap
 @inherits BuiContentComponentBase
 
-<nav class="navbar @ClassList" style="@Style">
+<nav class="navbar @ClassList" data-bs-theme="@ThemeAttribute" style="@Style">
 	<BuiContainer Fluid="Fluid">
 		@if (Brand != null) {
 			<div class="navbar-brand">

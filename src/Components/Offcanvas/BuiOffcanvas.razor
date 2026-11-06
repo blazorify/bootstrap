@@ -1,7 +1,7 @@
 @namespace Blazorify.Bootstrap
 @inherits BuiContentComponentBase
 
-<div class="offcanvas @ClassList" style="@Style" tabindex="-1">
+<div class="offcanvas @ClassList" data-bs-theme="@ThemeAttribute" style="@Style" tabindex="-1">
 	<div class="offcanvas-header">
 		@if (Header != null) {
 			@Header

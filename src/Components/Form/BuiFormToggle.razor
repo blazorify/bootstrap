@@ -15,7 +15,7 @@
 		   disabled="@Disabled"
 		   autocomplete="off">
 
-	<label class="btn @ClassList" for="@itemID">
+	<label class="btn @ClassList" data-bs-theme="@ThemeAttribute" for="@itemID">
 		@(OptionLabel != null ? OptionLabel.Invoke(item) : item)
 	</label>
 }

@@ -1,7 +1,7 @@
 @namespace Blazorify.Bootstrap
 @inherits BuiContentComponentBase
 
-<picture class="@Class">
+<picture class="@Class" data-bs-theme="@ThemeAttribute">
 	@if (hasLoadingError == false) {
 		<img id="@ID"
 			 class="img-fluid"

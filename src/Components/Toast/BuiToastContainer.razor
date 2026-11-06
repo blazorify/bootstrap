@@ -1,7 +1,7 @@
 @namespace Blazorify.Bootstrap
 @inherits BuiContentComponentBase
 
-<div class="toast-container @ClassList">
+<div class="toast-container @ClassList" data-bs-theme="@ThemeAttribute">
 	@foreach (var toast in toastService!.Toasts) {
 		<BuiToast ID="@toast.ID" Variant="toast.Variant">
 			@toast.Body

@@ -1,0 +1,29 @@
+name: build
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore Dependencies
+        run: dotnet restore tests/Blazorify.Bootstrap.Tests.csproj
+
+      - name: Build
+        run: dotnet build tests/Blazorify.Bootstrap.Tests.csproj --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test tests/Blazorify.Bootstrap.Tests.csproj --configuration Release --no-build

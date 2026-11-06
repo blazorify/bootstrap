@@ -8,6 +8,7 @@ namespace Microsoft.Extensions.DependencyInjection {
 		public static IServiceCollection AddBlazorify(this IServiceCollection services) {
 			services.AddScoped<BuiModalService>();
 			services.AddScoped<BuiToastService>();
+			services.AddScoped<BuiThemeService>();
 			services.AddSingleton<ResourceFileManager>();
 			services.AddSingleton<SassCompiler>();
 
