@@ -13,7 +13,7 @@ namespace Blazorify.Bootstrap {
 	/// Uses JavaScript interop, so call it after the first render (for example in <c>OnAfterRenderAsync</c>), not while prerendering.
 	/// For a page without a flash of the wrong theme, also load <c>/_blazorify/bootstrap/color-mode.js</c> in <c>&lt;head&gt;</c>.
 	/// </remarks>
-	public class BuiThemeService : IAsyncDisposable {
+	public class BuiThemeService : IAsyncDisposable, IDisposable {
 		public const String ScriptResourceName = "Blazorify.Bootstrap.Resources.Scripts.colorMode.js";
 
 		private readonly IJSRuntime jsRuntime;
@@ -102,6 +102,16 @@ namespace Blazorify.Bootstrap {
 				} catch (TaskCanceledException) {
 				}
 			}
+
+			this.dotNetObjectReference?.Dispose();
+		}
+
+		/// <summary>
+		/// Synchronous disposal (for containers that cannot dispose asynchronously): releases the .NET side only.
+		/// The browser drops its subscriber when the page or circuit goes away.
+		/// </summary>
+		public void Dispose() {
+			GC.SuppressFinalize(this);
 
 			this.dotNetObjectReference?.Dispose();
 		}
