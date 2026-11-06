@@ -1,7 +1,7 @@
 @namespace Blazorify.Bootstrap
 @inherits BuiContentComponentBase
 
-<div class="modal @ClassList" style="display: @(Shown ? "block" : "none"); @Style" tabindex="-1">
+<div class="modal @ClassList" data-bs-theme="@ThemeAttribute" style="display: @(Shown ? "block" : "none"); @Style" tabindex="-1">
 	<CascadingValue Value="this">
 		<BuiModalDialog Size="Size" Fullscreen="Fullscreen" Scrollable="Scrollable" Centered="Centered">
 			@ChildContent

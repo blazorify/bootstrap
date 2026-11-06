@@ -3,7 +3,7 @@
 @typeparam T
 
 <CascadingValue Name="Parent" Value="this">
-	<select class="form-select @ClassList" style="@Style" id="@ID" name="@Name" disabled="@Disabled" @onchange="(async (args) => await HandleChange(args))">
+	<select class="form-select @ClassList" data-bs-theme="@ThemeAttribute" style="@Style" id="@ID" name="@Name" disabled="@Disabled" @onchange="(async (args) => await HandleChange(args))">
 		@if (ChildContent != null)
 		{
 			@ChildContent

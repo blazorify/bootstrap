@@ -1,0 +1,106 @@
+@using System
+@using System.Linq
+@namespace Blazorify.Bootstrap
+@inherits BunitContext
+
+@code {
+	public BuiThemeToggleTest() {
+		JSInterop.Mode = JSRuntimeMode.Loose;
+		Services.AddScoped<BuiThemeService>();
+	}
+
+	[Fact]
+	public void ShouldRenderDropdownWithEveryMode() {
+		var cut = Render(@<BuiThemeToggle />);
+
+		var items = cut.FindAll(".dropdown-item");
+
+		Assert.Equal(new[] { "Light", "Dark", "Auto" }, items.Select(item => item.TextContent.Trim()));
+		Assert.Equal(new[] { "light", "dark", "auto" }, cut.FindAll(".dropdown-toggle [data-bui-theme-mode-icon]").Select(icon => icon.GetAttribute("data-bui-theme-mode-icon")));
+		Assert.NotNull(cut.Find(".dropdown.bui-theme-toggle"));
+	}
+
+	[Fact]
+	public void ShouldMarkCurrentModeActive() {
+		JSInterop.Setup<String?>("BlazorifyColorMode.getMode").SetResult("dark");
+
+		var cut = Render(@<BuiThemeToggle />);
+
+		cut.WaitForAssertion(() => {
+			var active = cut.Find(".dropdown-item.active");
+
+			Assert.Equal("Dark", active.TextContent.Trim());
+		});
+	}
+
+	[Fact]
+	public void ShouldSetModeWhenItemClicked() {
+		ColorMode? changed = null;
+
+		var cut = Render(@<BuiThemeToggle OnChange="@((ColorMode mode) => changed = mode)" />);
+
+		cut.FindAll(".dropdown-item")[0].Click();
+
+		Assert.Equal("light", JSInterop.VerifyInvoke("BlazorifyColorMode.setMode")[0].Arguments[0]);
+		Assert.Equal(ColorMode.Light, changed);
+		cut.WaitForAssertion(() => Assert.Equal("Light", cut.Find(".dropdown-item.active").TextContent.Trim()));
+	}
+
+	[Fact]
+	public void ShouldLeaveOutAutoWhenNotIncluded() {
+		var cut = Render(@<BuiThemeToggle IncludeAuto="false" />);
+
+		Assert.Equal(2, cut.FindAll(".dropdown-item").Count);
+		Assert.Empty(cut.FindAll("[data-bui-theme-mode-icon]"));
+		Assert.Equal(new[] { "light", "dark" }, cut.FindAll("[data-bui-theme-icon]").Select(icon => icon.GetAttribute("data-bui-theme-icon")));
+	}
+
+	[Fact]
+	public void ShouldCycleModesAsButton() {
+		JSInterop.Setup<String?>("BlazorifyColorMode.getMode").SetResult("light");
+
+		var cut = Render(@<BuiThemeToggle Dropdown="false" />);
+
+		Assert.Empty(cut.FindAll(".dropdown"));
+
+		cut.Find("button.bui-theme-toggle").Click();
+
+		Assert.Equal("dark", JSInterop.VerifyInvoke("BlazorifyColorMode.setMode")[0].Arguments[0]);
+	}
+
+	[Fact]
+	public void ShouldToggleLightAndDarkAsButtonWithoutAuto() {
+		JSInterop.Setup<String?>("BlazorifyColorMode.getTheme").SetResult("dark");
+
+		var cut = Render(@<BuiThemeToggle Dropdown="false" IncludeAuto="false" />);
+
+		cut.Find("button.bui-theme-toggle").Click();
+
+		Assert.Equal("light", JSInterop.VerifyInvoke("BlazorifyColorMode.setMode")[0].Arguments[0]);
+	}
+
+	[Fact]
+	public void ShouldFollowChangesFromOtherTabs() {
+		var cut = Render(@<BuiThemeToggle />);
+
+		Services.GetRequiredService<BuiThemeService>().HandleModeChanged("dark");
+
+		cut.WaitForAssertion(() => Assert.Equal("Dark", cut.Find(".dropdown-item.active").TextContent.Trim()));
+	}
+
+	[Fact]
+	public void ShouldHideLabelUnlessShown() {
+		var hidden = Render(@<BuiThemeToggle Label="Theme" />);
+		var shown = Render(@<BuiThemeToggle Label="Theme" ShowLabel="true" />);
+
+		Assert.Equal("visually-hidden", hidden.Find(".dropdown-toggle span").GetAttribute("class"));
+		Assert.Null(shown.Find(".dropdown-toggle span").GetAttribute("class"));
+	}
+
+	[Fact]
+	public void ShouldPassThemeToDropdown() {
+		var cut = Render(@<BuiThemeToggle Theme="ColorMode.Dark" />);
+
+		Assert.Equal("dark", cut.Find(".dropdown").GetAttribute("data-bs-theme"));
+	}
+}

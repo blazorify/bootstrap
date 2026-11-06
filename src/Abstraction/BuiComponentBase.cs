@@ -48,6 +48,23 @@ namespace Blazorify.Bootstrap {
 		[Parameter]
 		public virtual String? Tag { get; set; }
 
+		/// <summary>
+		/// Bootstrap color mode for this component and its children, rendered as <c>data-bs-theme</c>.
+		/// <see cref="ColorMode.Light"/> and <see cref="ColorMode.Dark"/> pin the mode;
+		/// <c>null</c> or <see cref="ColorMode.Auto"/> inherit it from the parent element.
+		/// </summary>
+		[Parameter]
+		public ColorMode? Theme { get; set; }
+
+		/// <summary>
+		/// The value rendered as <c>data-bs-theme</c>, or <c>null</c> to leave the attribute out.
+		/// </summary>
+		protected internal String? ThemeAttribute => this.Theme switch {
+			ColorMode.Light => "light",
+			ColorMode.Dark => "dark",
+			_ => null,
+		};
+
 		protected override async Task OnParametersSetAsync() {
 			await base.OnParametersSetAsync();
 

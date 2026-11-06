@@ -5,6 +5,7 @@ Bootstrap-powered components for Blazor with runtime Sass compilation (via `Blaz
 - Bootstrap-styled components (`BuiButton`, `BuiModal`, `BuiToast`, etc.).
 - On-demand CSS per theme at `/_blazorify/bootstrap/{theme}.css` compiled with Dart Sass.
 - A bundled helper script at `/_blazorify/bootstrap/scripts.js`.
+- Light / dark / auto color modes: a no-flash startup script, `BuiThemeService`, `BuiThemeToggle`, and a `Theme` parameter on every component.
 - Simple DI and middleware extensions to plug everything into your app.
 
 ## Quick start
@@ -102,6 +103,45 @@ Modals (provider + service):
 
 	private Task Close() => this.Modal?.Close() ?? Task.CompletedTask;
 }
+```
+
+## Color modes (light / dark / auto)
+Bootstrap 5.3 color modes are built in, modeled on the color mode toggler from the Bootstrap docs. The chosen mode is stored in `localStorage` (key `theme`) and applied as `data-bs-theme` on `<html>`; `auto` follows the operating system and updates live when it changes.
+
+Load the startup script as a blocking script in `<head>`, before any stylesheet that should follow the mode, so the page is painted in the right mode without a flash:
+```html
+<script src="/_blazorify/bootstrap/color-mode.js"></script>
+```
+Without a stored choice the mode is `auto`; set another default with `data-default-mode="light"` (or `dark`) on that tag.
+
+Drop in the toggle (a dropdown with Light / Dark / Auto, using [Bootstrap Icons](https://icons.getbootstrap.com/) names):
+```razor
+<BuiThemeToggle />
+<BuiThemeToggle Dropdown="false" IncludeAuto="false" Variant="Variant.Link" /> @* single light/dark button *@
+```
+Parameters: `Dropdown`, `IncludeAuto`, `Variant`, `Size`, `Caret`, `MenuPlacement`, `Label` / `ShowLabel`, `LightLabel` / `DarkLabel` / `AutoLabel`, `LightIcon` / `DarkIcon` / `AutoIcon`, `OnChange`.
+
+Or drive it from code with `BuiThemeService` (registered by `AddBlazorify()`; call it after the first render):
+```razor
+@inject BuiThemeService ThemeService
+
+@code {
+	protected override async Task OnAfterRenderAsync(bool firstRender) {
+		if (firstRender) {
+			var mode = await ThemeService.GetModeAsync();   // Light, Dark or Auto
+			var shown = await ThemeService.GetThemeAsync(); // Light or Dark, with Auto resolved
+		}
+	}
+
+	private Task UseDark() => ThemeService.SetModeAsync(ColorMode.Dark);
+}
+```
+`ThemeService.Changed` fires when the mode changes, including from another browser tab.
+
+Every component also takes a `Theme` parameter for a color mode on just that part of the page (rendered as `data-bs-theme`):
+```razor
+<BuiNavbar Theme="ColorMode.Dark">...</BuiNavbar>
+<BuiDropdownMenu Theme="ColorMode.Dark">...</BuiDropdownMenu>
 ```
 
 ## Custom themes

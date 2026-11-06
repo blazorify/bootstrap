@@ -1,0 +1,42 @@
+@namespace Blazorify.Bootstrap
+@inherits BuiComponentBase
+
+@if (Dropdown) {
+	<BuiDropdown Class="@($"bui-theme-toggle {ClassList}")" Style="@Style" Theme="Theme">
+		<BuiDropdownToggle Variant="Variant" Size="Size" Caret="Caret" Class="d-inline-flex align-items-center gap-2">
+			@ToggleContent
+		</BuiDropdownToggle>
+
+		<BuiDropdownMenu Placement="MenuPlacement">
+			@foreach (var item in Modes) {
+				var mode = item;
+
+				<BuiDropdownMenuItem Class="d-flex align-items-center gap-2" Active="@(mode == CurrentMode)" OnClick="@(async () => await SetModeAsync(mode))">
+					<i class="bi bi-@IconFor(mode) opacity-50" aria-hidden="true"></i>
+					<span class="flex-grow-1">@LabelFor(mode)</span>
+					<i class="bi bi-check2 @(mode == CurrentMode ? null : "invisible")" aria-hidden="true"></i>
+				</BuiDropdownMenuItem>
+			}
+		</BuiDropdownMenu>
+	</BuiDropdown>
+} else {
+	<BuiButton Class="@($"bui-theme-toggle d-inline-flex align-items-center gap-2 {ClassList}")" Style="@Style" Theme="Theme" Variant="Variant" Size="Size" OnClick="@(async () => await CycleAsync())">
+		@ToggleContent
+	</BuiButton>
+}
+
+@code {
+	// Every icon is rendered; the color mode script shows the one matching <html data-bui-theme-mode / data-bs-theme>,
+	// so the toggle is right before Blazor is interactive and follows changes from other tabs and the OS.
+	private RenderFragment ToggleContent => @<text>
+		@if (IncludeAuto) {
+			foreach (var mode in Modes) {
+				<i class="bi bi-@IconFor(mode)" data-bui-theme-mode-icon="@BuiThemeService.ToValue(mode)" aria-hidden="true"></i>
+			}
+		} else {
+			<i class="bi bi-@LightIcon" data-bui-theme-icon="light" aria-hidden="true"></i>
+			<i class="bi bi-@DarkIcon" data-bui-theme-icon="dark" aria-hidden="true"></i>
+		}
+		<span class="@(ShowLabel ? null : "visually-hidden")">@Label</span>
+	</text>;
+}

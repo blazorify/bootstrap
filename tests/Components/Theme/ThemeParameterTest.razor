@@ -1,0 +1,60 @@
+@using System
+@namespace Blazorify.Bootstrap
+@inherits BunitContext
+
+@code {
+	public ThemeParameterTest() {
+		JSInterop.Mode = JSRuntimeMode.Loose;
+	}
+
+	[Fact]
+	public void ShouldRenderDarkTheme() {
+		var cut = Render(@<BuiCard Theme="ColorMode.Dark">Content</BuiCard>);
+
+		Assert.Equal("dark", cut.Find(".card").GetAttribute("data-bs-theme"));
+	}
+
+	[Fact]
+	public void ShouldRenderLightTheme() {
+		var cut = Render(@<BuiNavbar Theme="ColorMode.Light" />);
+
+		Assert.Equal("light", cut.Find("nav.navbar").GetAttribute("data-bs-theme"));
+	}
+
+	[Fact]
+	public void ShouldLeaveAttributeOutByDefault() {
+		var cut = Render(@<BuiAlert>Content</BuiAlert>);
+
+		Assert.False(cut.Find(".alert").HasAttribute("data-bs-theme"));
+	}
+
+	[Fact]
+	public void ShouldInheritForAuto() {
+		var cut = Render(@<BuiAlert Theme="ColorMode.Auto">Content</BuiAlert>);
+
+		Assert.False(cut.Find(".alert").HasAttribute("data-bs-theme"));
+	}
+
+	[Fact]
+	public void ShouldRenderThemeOnDropdownMenu() {
+		var cut = Render(
+			@<BuiDropdown>
+				<BuiDropdownToggle>Menu</BuiDropdownToggle>
+				<BuiDropdownMenu Theme="ColorMode.Dark">
+					<BuiDropdownMenuItem>Item</BuiDropdownMenuItem>
+				</BuiDropdownMenu>
+			</BuiDropdown>
+		);
+
+		Assert.Equal("dark", cut.Find(".dropdown-menu").GetAttribute("data-bs-theme"));
+		Assert.False(cut.Find(".dropdown").HasAttribute("data-bs-theme"));
+	}
+
+	[Fact]
+	public void ShouldRenderThemeOnInputs() {
+		var value = "";
+		var cut = Render(@<BuiFormInputText T="String" @bind-Value="value" Theme="ColorMode.Dark" />);
+
+		Assert.Equal("dark", cut.Find("input").GetAttribute("data-bs-theme"));
+	}
+}

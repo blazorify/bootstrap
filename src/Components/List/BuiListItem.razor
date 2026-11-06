@@ -2,11 +2,11 @@
 @inherits BuiContentComponentBase
 
 @if (!String.IsNullOrWhiteSpace(Href)) {
-	<a class="list-group-item @ClassList" style="@Style" href="@Href">
+	<a class="list-group-item @ClassList" data-bs-theme="@ThemeAttribute" style="@Style" href="@Href">
 		@ChildContent
 	</a>
 } else {
-	<div class="list-group-item @ClassList" style="@Style">
+	<div class="list-group-item @ClassList" data-bs-theme="@ThemeAttribute" style="@Style">
 		@ChildContent
 	</div>
 }

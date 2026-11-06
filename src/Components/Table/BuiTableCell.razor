@@ -4,13 +4,13 @@
 
 @if (Head == null)
 {
-	<td class="@ClassList" style="@Style">
+	<td class="@ClassList" data-bs-theme="@ThemeAttribute" style="@Style">
 		@ChildContent
 	</td>
 }
 else
 {
-	<th class="@ClassList" style="@Style">
+	<th class="@ClassList" data-bs-theme="@ThemeAttribute" style="@Style">
 		@ChildContent
 	</th>
 }

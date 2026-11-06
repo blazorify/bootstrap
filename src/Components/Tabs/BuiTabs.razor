@@ -14,9 +14,9 @@
 		</nav>
 	}
 
-	<nav class="tab-content @ClassList" style="@Style">
+	<nav class="tab-content @ClassList" data-bs-theme="@ThemeAttribute" style="@Style">
 		@foreach (var tab in tabs) {
-			<div class="tab-pane fade @tab.GetClassList()">
+			<div class="tab-pane fade @tab.GetClassList()" data-bs-theme="@tab.ThemeAttribute">
 				@tab.ChildContent
 			</div>
 		}

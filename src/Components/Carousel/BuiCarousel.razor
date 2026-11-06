@@ -1,7 +1,7 @@
 @namespace Blazorify.Bootstrap
 @inherits BuiContentComponentBase
 
-<div id="@ID" class="carousel slide @Class" style="@Style" @onmouseover="@(() => HandleMouseOver())" @onmouseout="@(() => HandleMouseOut())">
+<div id="@ID" class="carousel slide @Class" data-bs-theme="@ThemeAttribute" style="@Style" @onmouseover="@(() => HandleMouseOver())" @onmouseout="@(() => HandleMouseOut())">
 	@if (WithIndicators) {
 		<div class="carousel-indicators">
 			@for (var index = 0; index < this.items.Count; index++) {
